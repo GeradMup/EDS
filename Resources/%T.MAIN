@@ -1,7 +1,7 @@
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 08:51  PAGE  1     .
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  1     .
 
 1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 08:51  PAGE  2     .
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  2     .
 
 1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
 James Howden Holdings - Kombat Mine Namibia
@@ -63,7 +63,7 @@ BINDS  Group binding             0.   mm
 COR    Corona shield             0.44 mm
 TISW   Width Intersection ins.   0.   mm    NWLINS No. liners in width   0
 TISD   Depth Intersection ins.   0.   mm    NDLINS No. liners in depth   0
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 08:51  PAGE  3     .
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  3     .
 
 1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
 
@@ -124,7 +124,7 @@ K Circ  1.    1.    1.009               St Sl.  2.229   R Sl   1.434
 Approx Rotor WR2  41.8 kgm2             KL1     0.938   KL2    1
 Approx Brg Dia 125  l/Min/Brg 0         St Ew   0.85    R Ew   0.189
 Approx Rotor mass 1400 kg 
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 08:51  PAGE  4     .
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  4     .
 
 1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
 
@@ -185,7 +185,70 @@ Minimum accelerating torque 0.786  at slip= 1
 Rotor bar          98.6 K
 Rotor SC ring      18.1 K
 Stator Winding     35.8 K        49.6 K               169.6 C
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 08:51  PAGE  5     .
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  5     .
+
+1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
+
+
+
+LOCKED ROTOR CURRENTS (referred to rated volts)
+                             pu    Amps/Ph   kVA/kW    
+Unsaturated (AEI Method)   4.354    392.6     5.28
+
+DOL at 0.9pu volts         5.456    492.1     6.62
+
+
+
+
+
+
+
+
+
+0 kW loss per torque disc at S=1.0  Volts=1.0  Total kW 0 = 0 pu
+REACTANCE and SATURATION OF COMPONENTS
+COMPONENT               STATOR                ROTOR        Bar Amps S=1
+                 UNSAT X    SAT.I       UNSAT X    SAT.I     7985 rms
+Zigzag           0.02129    1.823       0.03217    1.823
+Bridge           0.02008    3.115       0.02448    3.537   Bar AC/DC S=1
+Bridge to cu     0.01638                0.                     4.14
+Wound Slot       0.05958
+Endwinding       0.02972                0.00716
+STARTING CHARACTERISTICS AT VOLTS= 0.9            2H (KWSec/KW)= 12.701
+EXTERNAL REACTANCE (PU)= 0   Volts across motor=0.9 pu
+0 pu Torque from torque discs at S=1.0  included below.
+ SLIP   TORQUE  STA I   P.F.   TIME   Load   X1     X2     R1      R2
+ 1.      0.787  5.456  0.187    0.    0.25   0.11   0.053 0.009  0.0225
+ 0.9     0.814  5.397  0.193    1.89  0.009  0.11   0.054 0.0092 0.0215
+ 0.8     0.852  5.306  0.202    3.46  0.038  0.111  0.056 0.0093 0.0207
+ 0.7     0.892  5.206  0.212    5.03  0.086  0.112  0.058 0.0094 0.0197
+ 0.6     0.935  5.088  0.223    6.63  0.154  0.113  0.06  0.0096 0.0186
+ 0.5     0.979  4.944  0.235    8.3   0.24   0.114  0.064 0.0097 0.0172
+ 0.4     1.022  4.767  0.249   10.1   0.346  0.116  0.068 0.0099 0.0155
+ 0.3     1.067  4.55   0.265   12.09  0.471  0.118  0.074 0.01   0.0134
+ 0.2     1.148  4.288  0.294   14.34  0.615  0.12   0.082 0.0102 0.0109
+ 0.1     1.457  3.867  0.389   16.44  0.778  0.124  0.091 0.0103 0.0085
+ 0.09    1.523  3.784  0.412   16.62  0.795  0.125  0.092 0.0103 0.0084
+ 0.08    1.593  3.688  0.438   16.79  0.813  0.126  0.093 0.0103 0.0082
+ 0.07    1.674  3.571  0.47    16.94  0.831  0.127  0.094 0.0103 0.0081
+ 0.06    1.762  3.423  0.511   17.09  0.849  0.129  0.095 0.0103 0.0079
+ 0.05    1.844  3.223  0.562   17.22  0.867  0.13   0.097 0.0103 0.0078
+ 0.04    1.895  2.945  0.624   17.35  0.885  0.133  0.099 0.0103 0.0077
+ 0.03    1.868  2.55   0.701   17.48  0.904  0.135  0.101 0.0103 0.0076
+ 0.02    1.651  1.975  0.791   17.63  0.923  0.139  0.104 0.0103 0.0076
+ 0.01    1.062  1.147  0.866   17.93  0.942  0.139  0.104 0.0103 0.0076
+ 0.00867 0.944  1.017  0.868   18.21  0.944  0.139  0.104 0.0103 0.0075
+
+Pull-out torque (max. value from table above) :  1.895
+Pull-up torque (min. value from above table above) :  0.787
+Minimum accelerating torque 0.533  at slip= 0.2
+
+TEMPERATURE RISES
+(Adiabatic from 20C)          (approx from hot)  approx total temp C
+Rotor bar         105.8 K
+Rotor SC ring      19.8 K
+Stator Winding     39.2 K        54.2 K               174.2 C
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  6     .
 
 1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
 
@@ -225,20 +288,20 @@ EXTERNAL REACTANCE (PU)= 0   Volts across motor=0.8 pu
  0.6     0.681  4.342  0.214    9.54  0.154  0.118  0.063 0.0096 0.0186
  0.5     0.714  4.22   0.226   12.08  0.24   0.119  0.067 0.0098 0.0172
  0.4     0.746  4.07   0.239   14.99  0.346  0.121  0.071 0.0099 0.0155
- 0.3     0.78   3.887  0.255   18.57  0.471  0.123  0.078 0.0101 0.0134
- 0.2     0.853  3.688  0.285   23.22  0.615  0.124  0.085 0.0103 0.0109
- 0.1     1.117  3.365  0.385   27.62  0.778  0.127  0.093 0.0105 0.0086
- 0.09    1.175  3.297  0.41    27.98  0.795  0.128  0.094 0.0105 0.0085
- 0.08    1.236  3.22   0.437   28.29  0.813  0.129  0.095 0.0105 0.0084
- 0.07    1.303  3.122  0.47    28.58  0.831  0.129  0.096 0.0106 0.0082
- 0.06    1.373  2.993  0.512   28.83  0.849  0.131  0.097 0.0106 0.0081
- 0.05    1.436  2.817  0.562   29.06  0.867  0.132  0.098 0.0106 0.008 
- 0.04    1.479  2.575  0.626   29.28  0.885  0.134  0.1   0.0106 0.0079
- 0.03    1.457  2.23   0.704   29.5   0.904  0.137  0.102 0.0106 0.0078
- 0.02    1.29   1.728  0.794   29.78  0.923  0.139  0.104 0.0106 0.0078
- 0.01182 0.938  1.151  0.859   30.35  0.938  0.139  0.104 0.0106 0.0077
+ 0.3     0.78   3.887  0.256   18.57  0.471  0.123  0.078 0.0101 0.0134
+ 0.2     0.853  3.688  0.286   23.22  0.615  0.124  0.085 0.0103 0.0109
+ 0.1     1.116  3.364  0.386   27.63  0.778  0.127  0.093 0.0105 0.0086
+ 0.09    1.175  3.297  0.41    27.99  0.795  0.128  0.094 0.0105 0.0085
+ 0.08    1.235  3.219  0.437   28.3   0.813  0.129  0.095 0.0105 0.0084
+ 0.07    1.302  3.121  0.471   28.59  0.831  0.129  0.096 0.0106 0.0082
+ 0.06    1.372  2.992  0.512   28.84  0.849  0.131  0.097 0.0106 0.0081
+ 0.05    1.435  2.816  0.562   29.08  0.867  0.132  0.098 0.0106 0.008 
+ 0.04    1.478  2.575  0.626   29.3   0.885  0.134  0.1   0.0106 0.0079
+ 0.03    1.457  2.229  0.704   29.52  0.904  0.137  0.102 0.0106 0.0078
+ 0.02    1.29   1.727  0.794   29.79  0.923  0.139  0.104 0.0106 0.0078
+ 0.01182 0.938  1.151  0.859   30.36  0.938  0.139  0.104 0.0106 0.0077
 
-Pull-out torque (max. value from table above) :  1.479
+Pull-out torque (max. value from table above) :  1.478
 Pull-up torque (min. value from above table above) :  0.571
 Minimum accelerating torque 0.238  at slip= 0.2
 
@@ -248,7 +311,7 @@ Rotor bar         122.  K
 Rotor SC ring      24.  K
 Stator Winding     47.  K        65.1 K               185.1 C
 WARNING Stator copper at 0.8 pu V after 1 hot start 185.1C exceeds 185C.
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 08:51  PAGE  6     .
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  7     .
 
 1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
 
@@ -277,7 +340,7 @@ Compressive Force between coils N     103.9         4070.8
 Downward Force (into slot)      N     138.6         4070.8
 
 Shear stress in wedges N/mm2          0.             0.07  (limit is 160)
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 08:51  PAGE  7     .
+MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  8     .
 
 1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
 
