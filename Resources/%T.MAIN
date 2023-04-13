@@ -1,143 +1,143 @@
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  1     .
+MAIN      EDM2374 version 34.03  PRD   KG    13 APR 2023 11:35  PAGE  1     .
 
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  2     .
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
+MAIN      EDM2374 version 34.03  PRD   KG    13 APR 2023 11:35  PAGE  2     .
 
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
-James Howden Holdings - Kombat Mine Namibia
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
+MEKOROT - KISALON J2 UNIT 6 & 7 PUMP STATION
               Magnetic wedge simulation *
 Mode type     MOT                       Spec. max Stator temp C  120.   Res
-Frame size    UD400/125                 Spec. max Stator temp C  130.   ETD
-S.O. No.      QD35203                   Spec. max Rotor temp C   350.  
-Spec No.      BS4999                    Ambient Temp C            40.  
-Enclosure     IP55    IC6A1A1           Cooler Differential K     20.  
-IS spec No.   IS755F6C4                 Altitude m               1650.  
+Frame size    UD450/125                 Spec. max Stator temp C  130.   ETD
+S.O. No.      QD35205                   Spec. max Rotor temp C   350.  
+Spec No.      BS4999                    Ambient Temp C            45.  
+Enclosure     IP24    IC0A1             Cooler Differential K     10.  
+IS spec No.   IS755F6C3                 Altitude m               1650.  
   Mod ISKs    0                                               
-FL kW            850.                             { Specified min POT      1.6 
-Poles             6     Design Letter     G       { Specified max STI      6.  
-Line Volts      6600.   Tolerances        TTTTT   { Specified min STT      0.4 
+FL kW           1492.                             { Specified min POT      2.  
+Poles             4     Design Letter     G       { Specified max STI      6.  
+Line Volts      3000.   Tolerances        NTTTT   { Specified min STT      0.8 
 Frequency       50.     Ventilation type  SER 
 
-PUNCHINGS               Stator outer dia.  746.     No. of ST Ducts       13
-Stator segs/circle  1   Gap diameter       501.6    No. of RT Ducts       13
+PUNCHINGS               Stator outer dia.  832.     No. of ST Ducts       11
+Stator segs/circle  1   Gap diameter       533.4    No. of RT Ducts       11
 Stator MM4406           Rotor ID           315.     Width of ST Ducts     10.  
  Grade  400.5           Rotor ID (eff)       0.     Width of RT Ducts     10.  
-Rotor  MM4406           Gross core length  830.     St. Stacking Factor    0.95
- Grade  400.5           Gap radial length    2.     Rt. Stacking Factor    0.95
+Rotor  MM4406           Gross core length  710.     St. Stacking Factor    0.95
+ Grade  400.5           Gap radial length    3.2    Rt. Stacking Factor    0.95
 
-ARMSONSHAFT             No. shaft arms       4      No. of torque discs    0
+ARMSONSHAFT             No. shaft arms       6      No. of torque discs    0
                         Shaft arm width     32.     Width   OD     0.      0.  
                         Shaft D under arms 180.     Dist. to SC ring       0.  
                                                     Disc material              
 
 STATOR WINDING                                      ROTOR CAGE     Insul. NO
 STAR                    COIL1     MM9331            Bar type              RECT    
-LAP      Preformed      Series sections      1      End ring mean dia.   378.6 
-Slots            72     Effcs/Slot (Tot)    28      Ring sect ( 50*40 ) 2000.  
-Parallel ccts     2     Phases               3      Slots                 58
+LAP      Preformed      Series sections      1      End ring mean dia.   441.5 
+Slots            72     Effcs/Slot (Tot)    20      Ring sect ( 35*65 ) 2275.  
+Parallel ccts     4     Phases               3      Slots                 58
 Wire/lay/turn     2.    NPWS                 2      Web depth              0.  
-Wire width        3.75  NPWS1                0      Bulb depth            40.  
-TCUS              1.55  (Eff. Wire Dpth)     1.55   Bar length          1010.  
-TCUS1             0.    Separator            2.     Slot depth            40.15
-Coil pitch       11     Total slot depth    71.     Bridge angle           0.  
-Dp below grv     66.77  ETDs (Type RTD )     6      Bridge                 3.  
+Wire width        4.95  NPWS1                0      Bulb depth            52.  
+TCUS              2.4   (Eff. Wire Dpth)     2.4    Bar length           848.  
+TCUS1             0.    Separator            2.     Slot depth            52.2 
+Coil pitch       16     Total slot depth    67.8    Bridge angle           0.  
+Dp below grv     63.57  ETDs (Type RTD )     7      Bridge                 3.5 
 Bridge angle      0.                                Slot opening           5.  
 Bridge     1.   * 4.23  Packing (Bot)        0.     Bulb Width             9.  
-Slot opng 12.   * 7.2   Wedge material  MM1193      Web Width              9.  
-Slot width       12.    Wedge Method         5      Bar res MM6303         1.78
-MLT             2769.   Wedge Thk       *    4.     E/R Res MM6361         1.76
-CLE 0     OVERH  232.   Wedge pack. thk      1.2    E/R react. F           0.25
-NCE wdg OD       693.3  Groove (Radial) *    3.23   Bar Temp. K         0.00385
-Liner thk.        0.    Groove (Tang)        1.2    End ring temp. K    0.00385
+Slot opng 12.9  * 7.74  Wedge material  MM1193      Web Width              9.  
+Slot width       12.9   Wedge Method         5      Bar res MM6303         1.78
+MLT             2852.   Wedge Thk       *    3.     E/R Res MM6361         1.76
+CLE 1     OVERH  271.   Wedge pack. thk      1.2    E/R react. F           0.25
+NCE wdg OD       708.8  Groove (Radial) *    3.23   Bar Temp. K         0.00385
+Liner thk.        0.19  Groove (Tang)        1.2    End ring temp. K    0.00385
                                                     Packing (Bottom)       0.  
 Inertia Factor    1.25                              Slot opening       CENTRAL 
-Load Inertia      942.7 kgm2                        OSLOPR opening offset  0.  
-                                                    Slot web width         9.3 
-                                                    Slot bulb width        9.3 
+Load Inertia      500.  kgm2                        OSLOPR opening offset  0.  
+                                                    Slot web width         9.35
+                                                    Slot bulb width        9.35
 STATOR INSULATION DETAILS                           SKEW pu St slot pitch 0.   
-TIWS   Conductor                 0.4  mm    TIWS1  Conductor            0.37 mm
+TIWS   Conductor                 0.4  mm    TIWS1  Conductor            0.34 mm
 TAPE   Turn taping               0.   mm
 GTAPE  Group turn taping         0.   mm
-TIMS   Main insulation    width  3.   mm    depth  2.64 mm       RDFACT 0.88 
+TIMS   Main insulation    width  1.56 mm    depth  1.46 mm       RDFACT 0.935
 BINDS  Group binding             0.   mm
-COR    Corona shield             0.44 mm
-TISW   Width Intersection ins.   0.   mm    NWLINS No. liners in width   0
-TISD   Depth Intersection ins.   0.   mm    NDLINS No. liners in depth   0
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  3     .
+COR    Corona shield             0.   mm
+TISW   Width Intersection ins.   0.   mm    NWLINS No. liners in width   2
+TISD   Depth Intersection ins.   0.   mm    NDLINS No. liners in depth   3
+MAIN      EDM2374 version 34.03  PRD   KG    13 APR 2023 11:35  PAGE  3     .
 
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
 
-FL SCD      4.03   Syn Rpm  1000.       EQUIVALENT CIRCUIT pu
-FL Bar CD   3.77   kW/m3Rpm    4.1      X1  0.1393  R1  0.01096
-AW/mm      57.69   FL kVA   1031.       X2  0.1098  R2  0.0087 
-POT         2.36   Mag C/Ph   27.4      Bm  0.3167  Gm  0.00783
-FL E/R CD   2.09                        Base Ohms 42.25
-EXT.FAN         0.2   }
+FL SCD      3.68   Syn Rpm  1500.       EQUIVALENT CIRCUIT pu
+FL Bar CD   3.94   kW/m3Rpm    4.9      X1  0.1303  R1  0.00811
+AW/mm      71.7    FL kVA   1734.2      X2  0.1289  R2  0.00669
+POT         2.23   Mag C/Ph   71.6      Bm  0.2206  Gm  0.00485
+FL E/R CD   3.74                        Base Ohms 5.19
+EXT.FAN         0.    }
 BRGS            0.    }
-WFAN            0.    }          6600 V  50 Hz  3 Ph  850 kW  90.2 Amp
-WDRAG           4.88  }  5.1 F&W        991.4 Rpm
-CORE   (2793)   3.14  )
-TOOTH  (2793)   2.49  )
-HF+Eddy(2774)   1.78  )  7.4 Iron+Eddy
-TOTAL          12.48               + I2R(95) 1.04 = 13.52 kW   PF 0.043
+WFAN            0.    }          3000 V  50 Hz  3 Ph  1492 kW  333.7 Amp
+WDRAG          19.    } 19.  F&W        1489.9 Rpm
+CORE   (2793)   4.39  )
+TOOTH  (2793)   2.05  )
+HF+Eddy(2774)   1.51  )  7.9 Iron+Eddy
+TOTAL          26.94               + I2R(95) 0.65 = 27.59 kW   PF 0.074
                     LOSSES AS CALCULATED FOR EFFICIENCY
-LOAD pu        1.0000    0.75      0.5   
-LOAD kW         850.0     637.5     425. 
-SC/PH            90.2      69.1      50.2
-RC/PH            82.4      60.7      40. 
-SLIP          0.00863   0.00626   0.00408
-RPM             991.4     993.7     995.9
-NL LOSS         12.48     12.48     12.48
-S CU LOSS(95)   11.30      6.64      3.50    
-R CU LOSS(100)   7.48      4.06      1.77    
-STRAY 0.5%       4.43      2.6       1.37
-TOTAL LOSS      35.7      25.77     19.12 
-EFF.           0.9597    0.9611    0.957 
-P.F.            0.859     0.84      0.774
+LOAD pu        1.0000    1.15      0.75      0.5       0.25  
+LOAD kW        1492.0    1715.8    1119.      746.      373. 
+SC/PH           333.7     386.8     251.3     175.3     108.8
+RC/PH           315.3     367.8     232.7     154.1      78.2
+SLIP          0.00677   0.008     0.00491   0.00321   0.00162
+RPM            1489.9    1488.     1492.6    1495.2    1497.6
+NL LOSS         26.94     26.94     26.94     26.94     26.94
+S CU LOSS(95)   14.06     18.89      7.97      3.88      1.49    
+R CU LOSS(100)  10.35     14.08      5.63      2.47      0.64    
+STRAY 0.5%       7.76     10.42      4.4       2.14      0.82
+TOTAL LOSS      59.15     70.33     44.95     35.43     29.9  
+EFF.           0.9619    0.9606    0.9614    0.9547    0.9258
+P.F.            0.894     0.889     0.892     0.858     0.713
 
-MAGNETIC CIRCUIT    0.10306 Flux/P      1.04425 C      0.4728 Bmean
+MAGNETIC CIRCUIT    0.13424 Flux/P      1.02879 C      0.4513 Bmean
      Area m2   Length    Teslas    ATs          ATs
-SC   0.0681    130.2     1.513     75.8          75.8
-RC   0.27351    71.79    1.609     89.1  1.609   89.1   1.609 T Apparent
-ST   0.09537    71.      1.47      75.3          75.3
-SWGR 0.06269     0.      2.236      0.            0. 
-RT   0.09275    40.15    1.512     60.3          60.3   0.825 B1 pk gap
-AG   0.15934     2.      0.88    1400.3        1400.3            747.3 Lg
- Min Gap(Gray)   1.91            1700.8        1700.8 Total ATs
-                         Mag Amps  27.4          27.4
+SC   0.09291   217.82    1.445     76.8          76.8
+RC   0.23689   108.8     1.668    200.6  1.668  200.6   2.341 T Apparent
+ST   0.12667    67.8     1.442     57.9          57.9
+SWGR 0.0856      0.      2.133      0.            0. 
+RT   0.12436    52.2     1.468     54.8          54.8   0.769 B1 pk gap
+AG   0.23555     3.2     0.775   1974.2        1974.2            654.7 Lg
+ Min Gap(Gray)   2.06            2364.3        2364.3 Total ATs
+                         Mag Amps  71.6          71.6
 STATOR WDG        STATOR CORE      ROTOR CAGE         ROTOR CORE
-MLT       2769.   L.Eff     665.   R/Ph Ref   0.3677 L.Eff     665. 
-R/Ph      0.4632  C.Coeff   1.161  R Bar Ref  0.3441 C.Coeff  1.065
-Sl.Cl(W)    0.26  Depth      51.2  KP         1.     Depth  48.15 (205.65)
-Sl.Cl(D)    3.01  Sl.Pitch  21.89  KS         1.     Sl.Pitch   26.95 
-Pitch pu   0.917  TW(1/3)   11.95  Bar kg       188  TW(1/3)    14.43
-KP   55.   0.991  Lam kg      910  E/R kg        42  Lam kg      480
-KS         0.958  TW(Gr)     7.86  Sl.Cl.Web   0.    TW(Bot)    12.98
-T/S/PH    168.    V/TURN    22.68  Sl.Cl.Blb   0.3  
-S/P/Ph      4.    Op/Pitch  0.329
-Mass kg      279
-kW/m2 AC   0.985                   FLT 8187.6 Nm
+MLT       2852.   L.Eff     570.   R/Ph Ref   0.0347 L.Eff     570. 
+R/Ph      0.0421  C.Coeff   1.12   R Bar Ref  0.0279 C.Coeff  1.042
+Sl.Cl(W)    0.26  Depth      81.5  KP         1.     Depth  50.3  (207.8)
+Sl.Cl(D)    1.08  Sl.Pitch  23.27  KS         1.     Sl.Pitch   28.55 
+Pitch pu   0.889  TW(1/3)   12.35  Bar kg       206  TW(1/3)    15.05
+KP   80.   0.985  Lam kg     1126  E/R kg        56  Lam kg      485
+KS         0.956  TW(Gr)     8.34  Sl.Cl.Web   0.    TW(Bot)    13.16
+T/S/PH     60.    V/TURN    28.87  Sl.Cl.Blb   0.35 
+S/P/Ph      6.    Op/Pitch  0.333
+Mass kg      416
+kW/m2 AC   1.025                   FLT 9563.1 Nm
 At 100 Deg C                            PERMEANCE
-        Bot   Top   Wdg                 St zz   0.476   R zz   0.55 
-K Str   1.004 1.025                     St Br   0.587   R Br   0.6  
-K Circ  1.    1.    1.009               St Sl.  2.229   R Sl   1.434
-Approx Rotor WR2  41.8 kgm2             KL1     0.938   KL2    1
-Approx Brg Dia 125  l/Min/Brg 0         St Ew   0.85    R Ew   0.189
-Approx Rotor mass 1400 kg 
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  4     .
+        Bot   Top   Wdg                 St zz   0.476   R zz   0.584
+K Str   1.016 1.107                     St Br   0.547   R Br   0.7  
+K Circ  1.    1.    1.031               St Sl.  1.89    R Sl   1.854
+Approx Rotor WR2  48 kgm2               KL1     0.917   KL2    1
+Approx Brg Dia 125  l/Min/Brg 3.06      St Ew   1.466   R Ew   0.58 
+Approx Rotor mass 1450 kg 
+MAIN      EDM2374 version 34.03  PRD   KG    13 APR 2023 11:35  PAGE  4     .
 
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
 
 
 
 LOCKED ROTOR CURRENTS (referred to rated volts)
                              pu    Amps/Ph   kVA/kW    
-Unsaturated (AEI Method)   4.837    436.3     5.87
-LR test at 1.5pu current   4.837    436.3     5.87
+Unsaturated (AEI Method)   4.873   1626.4     5.66
+LR test at 1.5pu current   4.873   1626.4     5.66
 
-Oscillogram 0.8pu volts    5.816    524.5     7.05
+Oscillogram 0.8pu volts    5.742   1916.5     6.67
 
-DOL at 1pu volts           6.259    564.5     7.59
+DOL at 1pu volts           6.034   2013.9     7.01
 
 
 
@@ -145,57 +145,58 @@ DOL at 1pu volts           6.259    564.5     7.59
 0 kW loss per torque disc at S=1.0  Volts=1.0  Total kW 0 = 0 pu
 REACTANCE and SATURATION OF COMPONENTS
 COMPONENT               STATOR                ROTOR        Bar Amps S=1
-                 UNSAT X    SAT.I       UNSAT X    SAT.I     9164 rms
-Zigzag           0.02129    1.823       0.03217    1.823
-Bridge           0.02008    3.115       0.02448    3.537   Bar AC/DC S=1
-Bridge to cu     0.01638                0.                     4.14
-Wound Slot       0.05958
-Endwinding       0.02972                0.00716
-STARTING CHARACTERISTICS AT VOLTS= 1              2H (KWSec/KW)= 12.701
+                 UNSAT X    SAT.I       UNSAT X    SAT.I     11622 rms
+Zigzag           0.01356    1.763       0.02054    1.763
+Bridge           0.01622    2.997       0.02495    2.705   Bar AC/DC S=1
+Bridge to cu     0.00781                0.                     5.37
+Wound Slot       0.04687
+Endwinding       0.05407                0.01961
+STARTING CHARACTERISTICS AT VOLTS= 1              2H (KWSec/KW)= 9.063
 EXTERNAL REACTANCE (PU)= 0   Volts across motor=1 pu
 0 pu Torque from torque discs at S=1.0  included below.
  SLIP   TORQUE  STA I   P.F.   TIME   Load   X1     X2     R1      R2
- 1.      1.036  6.259  0.193    0.    0.25   0.106  0.051 0.009  0.0225
- 0.9     1.071  6.189  0.199    1.37  0.009  0.107  0.052 0.0091 0.0215
- 0.8     1.121  6.085  0.209    2.56  0.038  0.108  0.054 0.0093 0.0207
- 0.7     1.173  5.969  0.219    3.73  0.086  0.108  0.056 0.0094 0.0197
- 0.6     1.229  5.832  0.23     4.9   0.154  0.109  0.058 0.0096 0.0185
- 0.5     1.286  5.665  0.242    6.1   0.24   0.111  0.062 0.0097 0.0172
- 0.4     1.341  5.46   0.256    7.35  0.346  0.112  0.066 0.0098 0.0155
- 0.3     1.398  5.21   0.273    8.67  0.471  0.114  0.072 0.01   0.0133
- 0.2     1.501  4.905  0.302   10.07  0.615  0.116  0.079 0.0101 0.0108
- 0.1     1.887  4.411  0.398   11.34  0.778  0.121  0.088 0.0102 0.0085
- 0.09    1.968  4.314  0.42    11.45  0.795  0.122  0.089 0.0102 0.0083
- 0.08    2.054  4.2    0.446   11.56  0.813  0.123  0.09  0.0102 0.0081
- 0.07    2.146  4.057  0.478   11.66  0.831  0.124  0.091 0.0102 0.008 
- 0.06    2.238  3.872  0.517   11.75  0.849  0.126  0.093 0.0102 0.0079
- 0.05    2.317  3.628  0.564   11.84  0.867  0.128  0.095 0.0102 0.0077
- 0.04    2.364  3.304  0.625   11.93  0.885  0.131  0.098 0.0102 0.0076
- 0.03    2.326  2.859  0.701   12.02  0.904  0.134  0.1   0.0102 0.0076
- 0.02    2.053  2.213  0.79    12.12  0.923  0.138  0.103 0.0102 0.0075
- 0.01    1.321  1.286  0.865   12.28  0.942  0.139  0.104 0.0102 0.0075
- 0.00677 0.948  0.924  0.862   12.5   0.948  0.139  0.104 0.0102 0.0075
+ 1.      0.826  6.034  0.156    0.    0.15   0.107  0.058 0.0063 0.02  
+ 0.9     0.859  5.983  0.162    1.19  0.009  0.107  0.059 0.0063 0.0191
+ 0.8     0.907  5.905  0.17     2.24  0.036  0.107  0.06  0.0064 0.0184
+ 0.7     0.96   5.818  0.18     3.28  0.081  0.108  0.062 0.0065 0.0176
+ 0.6     1.02   5.714  0.191    4.31  0.144  0.109  0.064 0.0065 0.0166
+ 0.5     1.09   5.587  0.205    5.35  0.225  0.109  0.067 0.0066 0.0155
+ 0.4     1.172  5.421  0.222    6.41  0.324  0.11   0.07  0.0066 0.0142
+ 0.3     1.266  5.191  0.245    7.49  0.441  0.112  0.076 0.0067 0.0125
+ 0.2     1.367  4.861  0.275    8.61  0.576  0.114  0.085 0.0067 0.0103
+ 0.1     1.592  4.371  0.343    9.71  0.729  0.117  0.098 0.0068 0.0075
+ 0.09    1.65   4.296  0.36     9.81  0.745  0.118  0.1   0.0068 0.0072
+ 0.08    1.718  4.213  0.38     9.91  0.762  0.119  0.102 0.0068 0.007 
+ 0.07    1.802  4.113  0.405   10.    0.778  0.119  0.103 0.0068 0.0067
+ 0.06    1.905  3.985  0.439   10.09  0.795  0.12   0.105 0.0068 0.0065
+ 0.05    2.023  3.811  0.483   10.16  0.812  0.122  0.107 0.0068 0.0063
+ 0.04    2.146  3.563  0.543   10.24  0.829  0.124  0.11  0.0068 0.0061
+ 0.03    2.229  3.185  0.625   10.3   0.847  0.127  0.113 0.0068 0.006 
+ 0.02    2.163  2.59   0.737   10.37  0.864  0.13   0.116 0.0068 0.0059
+ 0.01    1.565  1.578  0.867   10.46  0.882  0.133  0.119 0.0068 0.0058
+ 0.005   0.894  0.866  0.9     10.59  0.891  0.133  0.119 0.0068 0.0058
+ 0.00498 0.891  0.863  0.9     10.7   0.891  0.133  0.119 0.0068 0.0058
 
-Pull-out torque (max. value from table above) :  2.364
-Pull-up torque (min. value from above table above) :  1.036
-Minimum accelerating torque 0.786  at slip= 1
+Pull-out torque (max. value from table above) :  2.229
+Pull-up torque (min. value from above table above) :  0.826
+Minimum accelerating torque 0.676  at slip= 1
 
 TEMPERATURE RISES
 (Adiabatic from 20C)          (approx from hot)  approx total temp C
-Rotor bar          98.6 K
-Rotor SC ring      18.1 K
-Stator Winding     35.8 K        49.6 K               169.6 C
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  5     .
+Rotor bar         108.9 K
+Rotor SC ring      25.3 K
+Stator Winding     22.2 K        30.8 K               150.8 C
+MAIN      EDM2374 version 34.03  PRD   KG    13 APR 2023 11:35  PAGE  5     .
 
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
 
 
 
 LOCKED ROTOR CURRENTS (referred to rated volts)
                              pu    Amps/Ph   kVA/kW    
-Unsaturated (AEI Method)   4.354    392.6     5.28
+Unsaturated (AEI Method)   4.386   1463.8     5.1 
 
-DOL at 0.9pu volts         5.456    492.1     6.62
+DOL at 0.9pu volts         5.315   1773.7     6.18
 
 
 
@@ -208,112 +209,49 @@ DOL at 0.9pu volts         5.456    492.1     6.62
 0 kW loss per torque disc at S=1.0  Volts=1.0  Total kW 0 = 0 pu
 REACTANCE and SATURATION OF COMPONENTS
 COMPONENT               STATOR                ROTOR        Bar Amps S=1
-                 UNSAT X    SAT.I       UNSAT X    SAT.I     7985 rms
-Zigzag           0.02129    1.823       0.03217    1.823
-Bridge           0.02008    3.115       0.02448    3.537   Bar AC/DC S=1
-Bridge to cu     0.01638                0.                     4.14
-Wound Slot       0.05958
-Endwinding       0.02972                0.00716
-STARTING CHARACTERISTICS AT VOLTS= 0.9            2H (KWSec/KW)= 12.701
+                 UNSAT X    SAT.I       UNSAT X    SAT.I     10232 rms
+Zigzag           0.01356    1.763       0.02054    1.763
+Bridge           0.01622    2.997       0.02495    2.705   Bar AC/DC S=1
+Bridge to cu     0.00781                0.                     5.37
+Wound Slot       0.04687
+Endwinding       0.05407                0.01961
+STARTING CHARACTERISTICS AT VOLTS= 0.9            2H (KWSec/KW)= 9.063
 EXTERNAL REACTANCE (PU)= 0   Volts across motor=0.9 pu
 0 pu Torque from torque discs at S=1.0  included below.
  SLIP   TORQUE  STA I   P.F.   TIME   Load   X1     X2     R1      R2
- 1.      0.787  5.456  0.187    0.    0.25   0.11   0.053 0.009  0.0225
- 0.9     0.814  5.397  0.193    1.89  0.009  0.11   0.054 0.0092 0.0215
- 0.8     0.852  5.306  0.202    3.46  0.038  0.111  0.056 0.0093 0.0207
- 0.7     0.892  5.206  0.212    5.03  0.086  0.112  0.058 0.0094 0.0197
- 0.6     0.935  5.088  0.223    6.63  0.154  0.113  0.06  0.0096 0.0186
- 0.5     0.979  4.944  0.235    8.3   0.24   0.114  0.064 0.0097 0.0172
- 0.4     1.022  4.767  0.249   10.1   0.346  0.116  0.068 0.0099 0.0155
- 0.3     1.067  4.55   0.265   12.09  0.471  0.118  0.074 0.01   0.0134
- 0.2     1.148  4.288  0.294   14.34  0.615  0.12   0.082 0.0102 0.0109
- 0.1     1.457  3.867  0.389   16.44  0.778  0.124  0.091 0.0103 0.0085
- 0.09    1.523  3.784  0.412   16.62  0.795  0.125  0.092 0.0103 0.0084
- 0.08    1.593  3.688  0.438   16.79  0.813  0.126  0.093 0.0103 0.0082
- 0.07    1.674  3.571  0.47    16.94  0.831  0.127  0.094 0.0103 0.0081
- 0.06    1.762  3.423  0.511   17.09  0.849  0.129  0.095 0.0103 0.0079
- 0.05    1.844  3.223  0.562   17.22  0.867  0.13   0.097 0.0103 0.0078
- 0.04    1.895  2.945  0.624   17.35  0.885  0.133  0.099 0.0103 0.0077
- 0.03    1.868  2.55   0.701   17.48  0.904  0.135  0.101 0.0103 0.0076
- 0.02    1.651  1.975  0.791   17.63  0.923  0.139  0.104 0.0103 0.0076
- 0.01    1.062  1.147  0.866   17.93  0.942  0.139  0.104 0.0103 0.0076
- 0.00867 0.944  1.017  0.868   18.21  0.944  0.139  0.104 0.0103 0.0075
+ 1.      0.64   5.315  0.152    0.    0.15   0.109  0.059 0.0063 0.02  
+ 0.9     0.666  5.27   0.158    1.58  0.009  0.109  0.06  0.0063 0.0191
+ 0.8     0.704  5.201  0.167    2.95  0.036  0.11   0.061 0.0064 0.0184
+ 0.7     0.745  5.125  0.176    4.31  0.081  0.11   0.063 0.0065 0.0176
+ 0.6     0.792  5.034  0.187    5.69  0.144  0.111  0.065 0.0065 0.0166
+ 0.5     0.846  4.922  0.201    7.12  0.225  0.112  0.068 0.0066 0.0155
+ 0.4     0.911  4.777  0.218    8.62  0.324  0.113  0.072 0.0067 0.0142
+ 0.3     0.984  4.575  0.24    10.22  0.441  0.114  0.078 0.0067 0.0126
+ 0.2     1.065  4.285  0.27    11.98  0.576  0.117  0.087 0.0068 0.0104
+ 0.1     1.245  3.858  0.338   13.78  0.729  0.12   0.101 0.0068 0.0075
+ 0.09    1.292  3.793  0.355   13.95  0.745  0.12   0.102 0.0068 0.0073
+ 0.08    1.348  3.721  0.375   14.11  0.762  0.121  0.104 0.0068 0.007 
+ 0.07    1.416  3.634  0.4     14.26  0.778  0.122  0.106 0.0068 0.0068
+ 0.06    1.5    3.524  0.434   14.39  0.795  0.123  0.107 0.0068 0.0065
+ 0.05    1.597  3.373  0.478   14.52  0.812  0.124  0.109 0.0068 0.0063
+ 0.04    1.706  3.164  0.54    14.63  0.829  0.126  0.112 0.0068 0.0062
+ 0.03    1.792  2.843  0.625   14.73  0.847  0.128  0.114 0.0068 0.006 
+ 0.02    1.74   2.312  0.738   14.82  0.864  0.131  0.117 0.0068 0.0059
+ 0.01    1.259  1.409  0.868   14.97  0.882  0.133  0.119 0.0068 0.0059
+ 0.00637 0.889  0.958  0.898   15.14  0.889  0.133  0.119 0.0069 0.0059
 
-Pull-out torque (max. value from table above) :  1.895
-Pull-up torque (min. value from above table above) :  0.787
-Minimum accelerating torque 0.533  at slip= 0.2
-
-TEMPERATURE RISES
-(Adiabatic from 20C)          (approx from hot)  approx total temp C
-Rotor bar         105.8 K
-Rotor SC ring      19.8 K
-Stator Winding     39.2 K        54.2 K               174.2 C
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  6     .
-
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
-
-
-
-LOCKED ROTOR CURRENTS (referred to rated volts)
-                             pu    Amps/Ph   kVA/kW    
-Unsaturated (AEI Method)   3.87     349.      4.69
-
-DOL at 0.8pu volts         4.653    419.6     5.64
-
-
-
-
-
-
-
-
-
-0 kW loss per torque disc at S=1.0  Volts=1.0  Total kW 0 = 0 pu
-REACTANCE and SATURATION OF COMPONENTS
-COMPONENT               STATOR                ROTOR        Bar Amps S=1
-                 UNSAT X    SAT.I       UNSAT X    SAT.I     6804 rms
-Zigzag           0.02129    1.823       0.03217    1.823
-Bridge           0.02008    3.115       0.02448    3.537   Bar AC/DC S=1
-Bridge to cu     0.01638                0.                     4.14
-Wound Slot       0.05958
-Endwinding       0.02972                0.00716
-STARTING CHARACTERISTICS AT VOLTS= 0.8            2H (KWSec/KW)= 12.701
-EXTERNAL REACTANCE (PU)= 0   Volts across motor=0.8 pu
-0 pu Torque from torque discs at S=1.0  included below.
- SLIP   TORQUE  STA I   P.F.   TIME   Load   X1     X2     R1      R2
- 1.      0.571  4.653  0.179    0.    0.25   0.115  0.055 0.009  0.0225
- 0.9     0.591  4.603  0.185    2.81  0.009  0.115  0.056 0.0092 0.0215
- 0.8     0.62   4.526  0.194    5.    0.038  0.116  0.058 0.0093 0.0207
- 0.7     0.649  4.442  0.203    7.21  0.086  0.117  0.06  0.0095 0.0197
- 0.6     0.681  4.342  0.214    9.54  0.154  0.118  0.063 0.0096 0.0186
- 0.5     0.714  4.22   0.226   12.08  0.24   0.119  0.067 0.0098 0.0172
- 0.4     0.746  4.07   0.239   14.99  0.346  0.121  0.071 0.0099 0.0155
- 0.3     0.78   3.887  0.256   18.57  0.471  0.123  0.078 0.0101 0.0134
- 0.2     0.853  3.688  0.286   23.22  0.615  0.124  0.085 0.0103 0.0109
- 0.1     1.116  3.364  0.386   27.63  0.778  0.127  0.093 0.0105 0.0086
- 0.09    1.175  3.297  0.41    27.99  0.795  0.128  0.094 0.0105 0.0085
- 0.08    1.235  3.219  0.437   28.3   0.813  0.129  0.095 0.0105 0.0084
- 0.07    1.302  3.121  0.471   28.59  0.831  0.129  0.096 0.0106 0.0082
- 0.06    1.372  2.992  0.512   28.84  0.849  0.131  0.097 0.0106 0.0081
- 0.05    1.435  2.816  0.562   29.08  0.867  0.132  0.098 0.0106 0.008 
- 0.04    1.478  2.575  0.626   29.3   0.885  0.134  0.1   0.0106 0.0079
- 0.03    1.457  2.229  0.704   29.52  0.904  0.137  0.102 0.0106 0.0078
- 0.02    1.29   1.727  0.794   29.79  0.923  0.139  0.104 0.0106 0.0078
- 0.01182 0.938  1.151  0.859   30.36  0.938  0.139  0.104 0.0106 0.0077
-
-Pull-out torque (max. value from table above) :  1.478
-Pull-up torque (min. value from above table above) :  0.571
-Minimum accelerating torque 0.238  at slip= 0.2
+Pull-out torque (max. value from table above) :  1.792
+Pull-up torque (min. value from above table above) :  0.64 
+Minimum accelerating torque 0.489  at slip= 0.2
 
 TEMPERATURE RISES
 (Adiabatic from 20C)          (approx from hot)  approx total temp C
-Rotor bar         122.  K
-Rotor SC ring      24.  K
-Stator Winding     47.  K        65.1 K               185.1 C
-WARNING Stator copper at 0.8 pu V after 1 hot start 185.1C exceeds 185C.
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  7     .
+Rotor bar         116.7 K
+Rotor SC ring      27.8 K
+Stator Winding     24.3 K        33.6 K               153.6 C
+MAIN      EDM2374 version 34.03  PRD   KG    13 APR 2023 11:35  PAGE  6     .
 
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
 
 
 
@@ -322,11 +260,11 @@ Stator Winding     47.  K        65.1 K               185.1 C
 Slip   stator    Bar    --------Rotor--------   -------Stator-------    Total
        current  loss    tooth    surf    rad    tooth    surf    rad    loss
 pu       A       kW      kW       kW      kW     kW       kW     kW      kW
-0.0001   28.8    0.27    0.02    0.7     0.17    0.16    0.47    0.       1.8
-0.0086   89.8    1.18    0.07    1.51    0.32    2.85    1.1     0.       7. 
+0.0001   72.5    0.19    0.01    0.56    0.04    0.11    0.56    0.       1.5
+0.0068  331.8    1.54    0.12    2.13    0.13    4.26    1.78    0.05    10. 
 
-Total no load high frequency losses+Eddy loss        1.8  kW
-Total full load high frequency losses                7.   kW     0.83 %
+Total no load high frequency losses+Eddy loss        1.5  kW
+Total full load high frequency losses               10.   kW     0.67 %
 
 NB: Although position of Rotor slot opening is a data item the loss
     calculations do not differentiate between LEADING or TRAILING openings.
@@ -335,69 +273,69 @@ NB: Although position of Rotor slot opening is a data item the loss
 Calculations assume MM1194 wedges are used.
 Run MAGWEG if magnetic wedges are fitted.
                                      full load    DOL start
-Upward Force (on wedge)         N      11.2          438. 
-Compressive Force between coils N     103.9         4070.8
-Downward Force (into slot)      N     138.6         4070.8
+Upward Force (on wedge)         N      15.5          566. 
+Compressive Force between coils N     144.4         5259.9
+Downward Force (into slot)      N     192.6         5259.9
 
-Shear stress in wedges N/mm2          0.             0.07  (limit is 160)
-MAIN      EDM2374 version 34.03  PRD   KG    11 APR 2023 16:45  PAGE  8     .
+Shear stress in wedges N/mm2          0.             0.13  (limit is 160)
+MAIN      EDM2374 version 34.03  PRD   KG    13 APR 2023 11:35  PAGE  7     .
 
-1750/G2 - UD400/120 850KW 6P 6600V 50HZ VSD
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
 
 
 INDUCTION MOTOR TEMPERATURE RISE (STATOR+ROTOR) CU LOSSES AT 100C
                     Stator Teeth   Rotor Bar    Rotor Teeth
-STRAY LOSSES  kW    W1 = 3.95      W2 = 1.51    W3 = 1.58
+STRAY LOSSES  kW    W1 = 6.03      W2 = 1.67    W3 = 2.24
 
 AIR FLOW 
-Air quantity through all ducts        0.9   m3/sec
-Air quantity per duct                 0.069 m3/Sec
-Total core portion losses at 100C     30.27 kW
-kW loss/Total Duct Air Qty            33.63 kW/m3/Sec
+Air quantity through all ducts        1.1   m3/sec
+Air quantity per duct                 0.1   m3/Sec
+Total core portion losses at 100C     49.89 kW
+kW loss/Total Duct Air Qty            45.36 kW/m3/Sec
 
-   Rotor peripheral speed          = 25.83 m/Sec 
-Rotor Air Inlet Vel 20.53 m/Sec (0.795 pu of Rotor periph Vel for VENT=SER)
+   Rotor peripheral speed          = 41.11 m/Sec 
+Rotor Air Inlet Vel 27.83 m/Sec (0.677 pu of Rotor periph Vel for VENT=SER)
 
 Heat transfer coefficients       m/Sec     W/m2K                    W/mK
 Stator core to air outside core             29.5     Stator ins     0.278
-Stator core to duct air            8.       78.9     MM4406 Lams   29.4 
-Stator tooth to duct air          14.8     128.      Lam to lam     2.2  
-Stator gap to air                 25.8     191.4
-Rotor  gap to air                 25.8     114.8
-Rotor tooth to duct air           15.6      65.7     Rotor ins      0.394
-Rotor core to duct air            17.9      79.9     MM4406 Lams   29.4 
+Stator core to duct air           10.5      97.2     MM4406 Lams   29.4 
+Stator tooth to duct air          20.8     167.8     Lam to lam     2.2  
+Stator gap to air                 41.1     242.3
+Rotor  gap to air                 41.1     145.4
+Rotor tooth to duct air           21.3      84.1     Rotor ins      0.394
+Rotor core to duct air            25.7     106.3     MM4406 Lams   29.4 
 Rotor core to air under core                 62. 
-Empirical Endwdg  W/m2K                     27.4
+Empirical Endwdg  W/m2K                     36. 
 For SER m/cs the internal fan kW are not included in core air rise.
 
 STATOR    Watts per 1/4 Packet          Rise K (excludes cooler)
-          Copper    1.75                Copper         59. 
-                                        ETD            56.9
-          Teeth     1.6                 Teeth          53.4
-          Core      0.78                Core           50.1
-                                        Outlet air     27.4
+          Copper    2.21                Copper         60.6
+                                        ETD            59.8
+          Teeth     2.34                Teeth          56.7
+          Core      1.27                Core           50.2
+                                        Outlet air     29.9
 ROTOR     Watts per 1/4 Packet          Rise K (excludes cooler)
-          Copper    2.93                Copper         37.4
-          Teeth     0.49                Teeth          35.7
-          Gap       0.38                Core           30. 
-                                        Outlet air     10.6
+          Copper    4.08                Copper         40.3
+          Teeth     0.81                Teeth          38.6
+          Gap       1.71                Core           30.7
+                                        Outlet air     12. 
 
-Bar surface =  1.54 kW/m2               Endring surface =  0.24 kW/m2
-Rotor total loss/outer surface area =  8.08 kW/m2
+Bar surface =  1.72 kW/m2               Endring surface =  1.02 kW/m2
+Rotor total loss/outer surface area = 10.95 kW/m2
 
 TEMPERATURES at switch off
                            Cooler  Total
 STATOR                     diff.   Rise    Amb  Altitude Total Limit Margin
                      K       K      K       C      K       C     C      K
-Empirical Endwdg    49.7 +  20.  = 69.7 +  40.  +  5.2 = 114.9
-Embedded Copper     59.  +  20.  = 79.  +  40.  +  5.2 = 124.2 
-Av by Resistance    55.2 +  20.  = 75.2 +  40.  +  5.2 = 120.4
+Empirical Endwdg    43.5 +  10.  = 53.5 +  45.  +  4.9 = 103.4
+Embedded Copper     60.6 +  10.  = 70.6 +  45.  +  4.9 = 120.4 
+Av by Resistance    52.  +  10.  = 62.  +  45.  +  4.9 = 111.9
 
 
-          ETD       56.9 +  20.  = 76.9 +  40.  +  5.2 = 122.1  130.  7.9
-120 sec Resistance  75.2 x 0.933 = 70.2 +  40.  +  5.2 = 115.4  120.  4.6
+          ETD       59.8 +  10.  = 69.8 +  45.  +  4.9 = 119.7  130.  10
+120 sec Resistance  62.  x 0.933 = 57.8 +  45.  +  4.9 = 107.7  120.  12
 
 ROTOR
-           Bars     37.4 +  20.  = 57.4 +  40.  +  5.2 = 102.6 
-   Endring (Luke)   16.9 +  20.  = 36.9 +  40.  +  5.2 =  82.1
+           Bars     40.3 +  10.  = 50.3 +  45.  +  4.9 = 100.2 
+   Endring (Luke)   39.4 +  10.  = 49.4 +  45.  +  4.9 =  99.3
 WARNING MM6303 above 100C may have more than 3% creep(depends on stresses).
