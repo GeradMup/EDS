@@ -18,20 +18,22 @@ class Curves():
     speed = []
     torque = []
     current = []
-    load = []
 
 #----------------------------------------------------------------------------------------------------------------------
 class Model():
     def __init__(self):
        self.__indexes = []
        self.__curves = []
+       self.__loadCurve = []
+       self.__noEngineerErrorMessage = "Please selected an Engineer!"
+       self.__successfulExportMessage = "Curves have been Exported!"
 
     #----------------------------------------------------------------------------------------------------------------------
     def generateCurveFiles(self, eng):
         #Return false if no engineer is selected
         if self.__engineerExists(eng) == False:
-            errorMessage = "Please selected an Engineer!"
-            return [False, errorMessage]
+            
+            return [False, self.__noEngineerErrorMessage]
         
         self.__readDesign()
 
@@ -57,8 +59,7 @@ class Model():
         
         self.__generateCsvFiles(eng)
 
-        successMessage = "Curves have been imported!"
-        return [True, successMessage]
+        return [True, self.__successfulExportMessage]
     
     #----------------------------------------------------------------------------------------------------------------------
     def __engineerExists(self, eng):
@@ -92,7 +93,9 @@ class Model():
         speedArray = []
         torqueArray = []
         currentArray = []
-        loadArray = []
+        self.__loadCurve = []
+        loadSpeed = []
+        loadTorque = []
 
         voltPoint = float(self.__fileContent[lineNumbers[0] - 4][37:40])
         speedArray.append(voltPoint)
@@ -106,77 +109,91 @@ class Model():
             current = float(line[16:22])
             load = float(line[38:44])
 
-            '''
-            speed = line[:8]
-            torque = line[9:15]
-            current = line[16:22]
-            load = line[38:44]
-            '''
-
             speedArray.append(speed)
             torqueArray.append(torque)
             currentArray.append(current)
-            loadArray.append(load)
-            print(f'{speed}  {torque}  {current}  {load}')
+            loadTorque.append(load)
+            loadSpeed.append(speed)
+
+        self.__loadCurve = [loadSpeed, loadTorque]   
             
-        
         curves = Curves()
         curves.speed = speedArray
         curves.torque = torqueArray
         curves.current = currentArray
-        curves.load = loadArray
 
         self.__curves.append(curves)
 
     #----------------------------------------------------------------------------------------------------------------------
+    #Generates all the required CSV files
+    #----------------------------------------------------------------------------------------------------------------------
     def __generateCsvFiles(self, eng):
         
-        curves1Names = self.__filenames('a',eng)
-        curves2Names = self.__filenames('b',eng)
-        curves3Names = self.__filenames('c',eng)
+        self.__createFilenames(eng)     #Creates all the file names that will be used for saving the csv files
         
         if len(self.__curves) == 1:     #This is for when we only have the 100% volts point
-            curves1Names = self.__filenames('a',eng)
-            self.__saveToCsv(self.__curves[0], curves1Names)
+            self.__addZeroes()          #Fill the rest of the positions with zeroes
+            self.__addZeroes()
 
         elif len(self.__curves) == 2:   #This is for when we have the 100% point + one percentage point e.g 0.9
-            curves1Names = self.__filenames('a',eng)
-            curves2Names = self.__filenames('b',eng)
-
-            self.__saveToCsv(self.__curves[0], curves1Names)
-            self.__saveToCsv(self.__curves[1], curves2Names)
+            self.__addZeroes()          #Fill the rest of the positions with zeroes
 
         elif len(self.__curves) == 3:   #This is for when we have the 100% point + two percentage points e.g 0.9 and 0.8 
+            pass
 
-            self.__saveToCsv(self.__curves[0], curves1Names)
-            self.__saveToCsv(self.__curves[1], curves2Names)
-            self.__saveToCsv(self.__curves[2], curves3Names)
+        self.__createCSV(self.__curves[0].speed, self.__curves[0].torque, self.__speedTorque1Path)   #Speed vs Torque at 1pu
+        self.__createCSV(self.__curves[0].speed, self.__curves[0].current, self.__speedCurrent1Path)   #Speed vs Current at 1pu
+
+        self.__createCSV(self.__curves[1].speed, self.__curves[1].torque, self.__speedTorque2Path)   #Speed vs Torque at first scaler
+        self.__createCSV(self.__curves[1].speed, self.__curves[1].current, self.__speedCurrent2Path)   #Speed vs Current at first scaler
+
+        self.__createCSV(self.__curves[2].speed, self.__curves[2].torque, self.__speedTorque3Path)   #Speed vs Torque at second scaler
+        self.__createCSV(self.__curves[2].speed, self.__curves[2].current, self.__speedCurrent3Path)   #Speed vs Current at second scaler
+
+        self.__createCSV(self.__loadCurve[0], self.__loadCurve[1], self.__loadPath)
 
     #----------------------------------------------------------------------------------------------------------------------
-    def __filenames(self, letter, eng):
-        speedTorque = 'slip_vs_torque_try_' + letter + '_' + eng + '.csv'
-        speedCurrent = 'slip_vs_i_try_'+ letter +'_' + eng + '.csv'
-        return [speedTorque, speedCurrent]
+    #Creates a curve with zeroes. This is used if the user choose to ommit some of the voltage scalers: nvolt = 1 or nvolt = 2
+    #----------------------------------------------------------------------------------------------------------------------
+    def __addZeroes(self):
+        speed = self.__curves[0].speed
+        zeros = [0.0] * len(speed) 
+        newCurvesSet = Curves()
+        newCurvesSet.speed = zeros
+        newCurvesSet.current = zeros
+        newCurvesSet.torque = zeros
+
+        self.__curves.append(newCurvesSet)
 
     #----------------------------------------------------------------------------------------------------------------------
-    def __saveToCsv(self, curves, fileNames):
-        speedTorquePath = os.path.join(resourcesDirectory, fileNames[0])
-        speedCurrentPath = os.path.join(resourcesDirectory, fileNames[1])
+    #Function to create all the file names that will be used to create the csv files
+    #----------------------------------------------------------------------------------------------------------------------
+    def __createFilenames(self, eng):
+        ext = '.csv'
+        self.__speedTorque1Path = 'slip_vs_torque_try_a' + '_' + eng + ext
+        self.__speedCurrent1Path = 'slip_vs_i_try_a' + '_' + eng + ext
 
-        file =  open(speedTorquePath, 'w')
-        for index in range(0, len(curves.speed)):    
-            file.write("{},{}\n".format(curves.speed[index] , curves.torque[index]))
+        self.__speedTorque2Path = 'slip_vs_torque_try_b' + '_' + eng + ext
+        self.__speedCurrent2Path = 'slip_vs_i_try_b' + '_' + eng + ext
+
+        self.__speedTorque3Path = 'slip_vs_torque_try_c' + '_' + eng + ext
+        self.__speedCurrent3Path = 'slip_vs_i_try_c' + '_' + eng + ext
         
+        self.__loadPath = 'slip_vs_load_try_' + eng + ext
+
+
+    #----------------------------------------------------------------------------------------------------------------------
+    def __createCSV(self, xValues, yValues, fileName):
+        #speedTorquePath = os.path.join(resourcesDirectory, fileNames[0])
+        #speedCurrentPath = os.path.join(resourcesDirectory, fileNames[1])
+        
+        filePath = os.path.join(resourcesDirectory, fileName)
+
+        file =  open(filePath, 'w')
+        #file2 = open(speedCurrentPath, 'w')
+        for index in range(0, len(xValues)):    
+            file.write("{},{}\n".format(xValues[index] , yValues[index]))
+            #file2.write("{},{}\n".format(curves.speed[index] , curves.current[index]))
+        
+        #file2.close()
         file.close()
-
-        x = np.array(curves.speed[1:len(curves.speed) - 1])
-        y = np.array(curves.torque[1:len(curves.torque) - 1])
-        x = np.flip(x)
-        y = np.flip(y)
-
-        print(x)
-        print(y)
-        ySmooth = gaussian_filter1d(y, sigma=0.1)
-        plt.plot(x,y)
-        plt.plot(x,ySmooth, color='red')
-        plt.show()

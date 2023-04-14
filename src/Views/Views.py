@@ -71,10 +71,10 @@ class Views():
     def __placeWidgets(self):
         self.__okButton.place(x=20,y=230)
         self.__dropdownMenu.place(x=20,y=190)
-        self.__torqueSpeedCheck.place(x=20, y=20)
-        self.__currentSpeedCheck.place(x=20,y=50)
-        self.__withstandCheck.place(x=20,y=80)
-        self.__criticalSpeedCheck.place(x=20,y=110)
+        #self.__torqueSpeedCheck.place(x=20, y=20)
+        #self.__currentSpeedCheck.place(x=20,y=50)
+        #self.__withstandCheck.place(x=20,y=80)
+        #self.__criticalSpeedCheck.place(x=20,y=110)
 
     #-----------------------------------------------------------------------------------------------------------------------------------------------
     #Add a button to the window
