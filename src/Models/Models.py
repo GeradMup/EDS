@@ -1,6 +1,11 @@
 import csv
 import os
 from dataclasses import dataclass
+import numpy as np
+import matplotlib.pyplot as plt
+from Savitzky_golay import *
+from scipy.interpolate import BSpline, make_interp_spline
+from scipy.ndimage.filters import gaussian_filter1d
 
 modelsDirectory = os.path.dirname(__file__)
 resourcesDirectory = os.path.join(modelsDirectory, '../../Resources')
@@ -64,9 +69,9 @@ class Model():
 
     #----------------------------------------------------------------------------------------------------------------------    
     def __readDesign(self):
-        self.__fileName = os.path.join(pathToEDSFile)
-        self.__file = open(self.__fileName)
-        self.__fileContent = self.__file.read().split('\n')
+        fileName = os.path.join(pathToEDSFile)
+        file = open(fileName)
+        self.__fileContent = file.read().split('\n')
         index = 0
         for line in self.__fileContent:
             if line != "":
@@ -88,6 +93,11 @@ class Model():
         torqueArray = []
         currentArray = []
         loadArray = []
+
+        voltPoint = float(self.__fileContent[lineNumbers[0] - 4][37:40])
+        speedArray.append(voltPoint)
+        torqueArray.append(voltPoint)
+        currentArray.append(voltPoint)
 
         for linenumber in range(lineNumbers[0], lineNumbers[1]):
             line = self.__fileContent[linenumber]
@@ -155,4 +165,18 @@ class Model():
 
         file =  open(speedTorquePath, 'w')
         for index in range(0, len(curves.speed)):    
-            file.write("{} {}\n".format(curves.speed[index] , curves.torque[index]))
+            file.write("{},{}\n".format(curves.speed[index] , curves.torque[index]))
+        
+        file.close()
+
+        x = np.array(curves.speed[1:len(curves.speed) - 1])
+        y = np.array(curves.torque[1:len(curves.torque) - 1])
+        x = np.flip(x)
+        y = np.flip(y)
+
+        print(x)
+        print(y)
+        ySmooth = gaussian_filter1d(y, sigma=0.1)
+        plt.plot(x,y)
+        plt.plot(x,ySmooth, color='red')
+        plt.show()

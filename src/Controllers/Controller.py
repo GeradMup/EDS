@@ -39,8 +39,7 @@ class Controller():
         curvesGenerated = self.__model.generateCurveFiles(self.__engineer)
 
         if curvesGenerated[0] == False:
-            self.__views.showError(curvesGenerated[1])
-        
+            self.__views.showError(curvesGenerated[1]) 
         else:
             self.__views.showInfo(curvesGenerated[1])
 
