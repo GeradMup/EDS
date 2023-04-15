@@ -287,6 +287,6 @@ class Model():
         #file2.close()
         file.close()
 
-if __name__ == '__main__':
-    model = Model()
-    model.generateCurveFiles('GM')
+#if __name__ == '__main__':
+#    model = Model()
+#    model.generateCurveFiles('GM')
