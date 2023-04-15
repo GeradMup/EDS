@@ -27,9 +27,9 @@ class Model():
         self.__engineers = []
         self.__fullSpeedStallCurrent = []
         self.__fullSpeedStallTime = []
-        self.__coldStallCurrent = []
-        self.__hotStallCurrent = []
-        self.__stallTime = []
+        self.__coldStallTime = []
+        self.__hotStallTime = []
+        self.__stallCurrent = []
         self.__noEngineerErrorMessage = "Please selected an Engineer!"
         self.__successfulExportMessage = "Curves have been Exported!"
         self.__edsFilePath = ''
@@ -197,8 +197,12 @@ class Model():
                     current = self.__withstandFile[linenumber][0:6]
                     hotTime = self.__withstandFile[linenumber][8:14]
                     coldTime = self.__withstandFile[linenumber][16:21]
-                    print(f'{current} {hotTime} {coldTime}')
 
+                    self.__stallCurrent.append(float(current))
+                    self.__hotStallTime.append(float(hotTime))
+                    self.__coldStallTime.append(float(coldTime))
+                    #print(f'{current} {hotTime} {coldTime}')
+        
     #----------------------------------------------------------------------------------------------------------------------
     #Generates all the required CSV files
     #----------------------------------------------------------------------------------------------------------------------
@@ -226,6 +230,13 @@ class Model():
         self.__createCSV(self.__curves[2].speed, self.__curves[2].current, self.__speedCurrent3Path)   #Speed vs Current at second scaler
 
         self.__createCSV(self.__loadCurve[0], self.__loadCurve[1], self.__loadPath)
+
+        #Save the Full Speed Hot Stall Time Curve
+        self.__createCSV(self.__fullSpeedStallCurrent, self.__fullSpeedStallTime, self.__fullSpeedHotStallPath)
+        #Save the Cold Stall Time Curve
+        self.__createCSV(self.__stallCurrent, self.__coldStallTime, self.__coldStallTimePath)
+        #Save the Hot Stall Time Curve
+        self.__createCSV(self.__stallCurrent, self.__hotStallTime, self.__hotStallTimePath)
 
     #----------------------------------------------------------------------------------------------------------------------
     #Creates a curve with zeroes. This is used if the user choose to ommit some of the voltage scalers: nvolt = 1 or nvolt = 2
@@ -256,6 +267,9 @@ class Model():
         
         self.__loadPath = 'slip_vs_load_try_' + eng + ext
 
+        self.__fullSpeedHotStallPath = 'full_speed_hot_stall_time_try_'+ eng + ext
+        self.__hotStallTimePath = 'hot_stall_time_try_' + eng + ext
+        self.__coldStallTimePath = 'cold_stall_time_try_' + eng + ext 
 
     #----------------------------------------------------------------------------------------------------------------------
     def __createCSV(self, xValues, yValues, fileName):
