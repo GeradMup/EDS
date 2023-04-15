@@ -38,7 +38,6 @@ class Controller():
             self.__views.showInfo(curvesGenerated[1])
             #self.__window.quit()
 
-
     #Callback method for when the engineers option box changes
     def __selectedEng(self, eng):
         self.__engineer = eng
