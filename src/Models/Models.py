@@ -20,13 +20,20 @@ class Curves():
 #----------------------------------------------------------------------------------------------------------------------
 class Model():
     def __init__(self):
-        self.__indexes = []
+        self.__edsFileIndexes = []
+        self.__withstandFileIndexes = []
         self.__curves = []
         self.__loadCurve = []
+        self.__engineers = []
+        self.__fullSpeedStallCurrent = []
+        self.__fullSpeedStallTime = []
+        self.__coldStallCurrent = []
+        self.__hotStallCurrent = []
+        self.__stallTime = []
         self.__noEngineerErrorMessage = "Please selected an Engineer!"
         self.__successfulExportMessage = "Curves have been Exported!"
-        self.__engineers = []
         self.__edsFilePath = ''
+        self.__withstandFilePath = ''
         self.__outputsBasePath = ''
 
         self.__readResources()
@@ -44,6 +51,7 @@ class Model():
         progInfoFile.close() 
 
         self.__edsFilePath = os.path.join(progInfo[0], '%T.MAIN')
+        self.__withstandFilePath = os.path.join(progInfo[0], '%T.WTHSTND')
         self.__outputsBasePath = progInfo[1]
 
     #----------------------------------------------------------------------------------------------------------------------
@@ -57,28 +65,30 @@ class Model():
             return [False, self.__noEngineerErrorMessage]
         
         #Read the Main File with all the design parameters
-        self.__readDesign()
+        self.__readEDSFile()
+        self.__readWithstandFile()
 
         curve1LineNumbers = []
         curve2LineNumbers = []
         curve3LineNumbers = []
 
-        if len(self.__indexes) == 6:        #All three voltage points avaiable: 100%, first percentage and second percentage
-            curve1LineNumbers = [self.__indexes[0], self.__indexes[1]]
-            curve2LineNumbers = [self.__indexes[2], self.__indexes[3]]
-            curve3LineNumbers = [self.__indexes[4], self.__indexes[5]]
+        if len(self.__edsFileIndexes) == 6:        #All three voltage points avaiable: 100%, first percentage and second percentage
+            curve1LineNumbers = [self.__edsFileIndexes[0], self.__edsFileIndexes[1]]
+            curve2LineNumbers = [self.__edsFileIndexes[2], self.__edsFileIndexes[3]]
+            curve3LineNumbers = [self.__edsFileIndexes[4], self.__edsFileIndexes[5]]
 
-        elif len(self.__indexes) == 4:      #Only two voltage points available. 100% and first percentage     
-            curve1LineNumbers = [self.__indexes[0], self.__indexes[1]]
-            curve2LineNumbers = [self.__indexes[2], self.__indexes[3]]
+        elif len(self.__edsFileIndexes) == 4:      #Only two voltage points available. 100% and first percentage     
+            curve1LineNumbers = [self.__edsFileIndexes[0], self.__edsFileIndexes[1]]
+            curve2LineNumbers = [self.__edsFileIndexes[2], self.__edsFileIndexes[3]]
         
-        elif len(self.__indexes) == 2:      #Only the 100% Voltage point is available
-            curve1LineNumbers = [self.__indexes[0], self.__indexes[1]]
+        elif len(self.__edsFileIndexes) == 2:      #Only the 100% Voltage point is available
+            curve1LineNumbers = [self.__edsFileIndexes[0], self.__edsFileIndexes[1]]
         
-        self.__extractCurves(curve1LineNumbers)
-        self.__extractCurves(curve2LineNumbers)
-        self.__extractCurves(curve3LineNumbers)
-        
+        self.__extractEDSCurves(curve1LineNumbers)
+        self.__extractEDSCurves(curve2LineNumbers)
+        self.__extractEDSCurves(curve3LineNumbers)
+        self.__extractWithstandCurves()
+
         self.__generateCsvFiles(eng)
 
         return [True, self.__successfulExportMessage]
@@ -93,22 +103,41 @@ class Model():
             return False
 
     #----------------------------------------------------------------------------------------------------------------------    
-    def __readDesign(self):
-        file = open(self.__edsFilePath)
-        self.__fileContent = file.read().split('\n')
+    def __readEDSFile(self):
+        #First we will read the EDS file and process it
+        edsfile = open(self.__edsFilePath, 'r')
+        self.__edsfile = edsfile.read().split('\n')
+        edsfile.close()
+
         index = 0
-        for line in self.__fileContent:
+        for line in self.__edsfile:
             if line != "":
                 if line[1:3] == '1.':                   #Determines the row number at which the run up table starts in the main file.          
-                    self.__indexes.append(index)
+                    self.__edsFileIndexes.append(index)
                 elif line[0:8] == 'Pull-out':
-                    self.__indexes.append(index - 1)    #Determines the row number at which the run up table ends in the main file.
+                    self.__edsFileIndexes.append(index - 1)    #Determines the row number at which the run up table ends in the main file.
             index = index + 1
-        
-        #return len(self.__fileContent)
-    
-    #----------------------------------------------------------------------------------------------------------------------
-    def __extractCurves(self, lineNumbers):
+
+    #----------------------------------------------------------------------------------------------------------------------   
+    def __readWithstandFile(self):
+        #Next we will read the withstand model file and process it
+        withstandFile = open(self.__withstandFilePath, 'r')
+        self.__withstandFile = withstandFile.read().split('\n')
+        withstandFile.close()
+
+        index = 0
+        for line in self.__withstandFile:
+            if line != "":
+                if line[0:28] == 'Current pu     Secs     Mins':  #Determines the row number at which the stall time from hot table starts.          
+                    self.__withstandFileIndexes.append(index+1)
+                elif line[0:18] == 'Stall Hot and Cold':
+                    self.__withstandFileIndexes.append(index)      #Determines the row number at which the stall time from hot table ends.
+            index = index + 1
+
+    #----------------------------------------------------------------------------------------------------------------------------------------
+    # Reads through EDS file and extracts the curves as required
+    #----------------------------------------------------------------------------------------------------------------------------------------
+    def __extractEDSCurves(self, lineNumbers):
 
         if len(lineNumbers) == 0:
             return
@@ -120,13 +149,13 @@ class Model():
         loadSpeed = []
         loadTorque = []
 
-        voltPoint = float(self.__fileContent[lineNumbers[0] - 4][37:40])
+        voltPoint = float(self.__edsfile[lineNumbers[0] - 4][37:40])
         speedArray.append(voltPoint)
         torqueArray.append(voltPoint)
         currentArray.append(voltPoint)
 
         for linenumber in range(lineNumbers[0], lineNumbers[1]):
-            line = self.__fileContent[linenumber]
+            line = self.__edsfile[linenumber]
             speed = float(line[:8])
             torque = float(line[9:15])
             current = float(line[16:22])
@@ -146,6 +175,29 @@ class Model():
         curves.current = currentArray
 
         self.__curves.append(curves)
+
+    #----------------------------------------------------------------------------------------------------------------------------------------
+    # Reads through WTHSTND file and extracts the curves as required
+    #----------------------------------------------------------------------------------------------------------------------------------------
+    def __extractWithstandCurves(self):
+        self.__fullSpeedStallCurrent = []
+        self.__fullSpeedStallTime = []
+
+        for linenumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile)-1):
+            #The first if statement will read Full Speed Hot Curve
+            if linenumber >= self.__withstandFileIndexes[0] and linenumber < self.__withstandFileIndexes[1]:
+                current = self.__withstandFile[linenumber][3:9]
+                time = self.__withstandFile[linenumber][13:20]
+            
+                self.__fullSpeedStallCurrent.append(float(current))
+                self.__fullSpeedStallTime.append(float(time))
+            else:   
+                #The else section reads the Hot and Cold Stall time curves 
+                if linenumber > self.__withstandFileIndexes[1]:
+                    current = self.__withstandFile[linenumber][0:6]
+                    hotTime = self.__withstandFile[linenumber][8:14]
+                    coldTime = self.__withstandFile[linenumber][16:21]
+                    print(f'{current} {hotTime} {coldTime}')
 
     #----------------------------------------------------------------------------------------------------------------------
     #Generates all the required CSV files
@@ -221,5 +273,6 @@ class Model():
         #file2.close()
         file.close()
 
-#if __name__ == '__main__':
-#    model = Model()
+if __name__ == '__main__':
+    model = Model()
+    model.generateCurveFiles('GM')
