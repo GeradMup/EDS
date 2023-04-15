@@ -1,16 +1,14 @@
 import csv
 import os
 from dataclasses import dataclass
-import numpy as np
-import matplotlib.pyplot as plt
-from Savitzky_golay import *
-from scipy.interpolate import BSpline, make_interp_spline
-from scipy.ndimage.filters import gaussian_filter1d
 
 modelsDirectory = os.path.dirname(__file__)
 resourcesDirectory = os.path.join(modelsDirectory, '../../Resources')
 edsFolder = 'C:/EDS PLOTS'
 pathToEDSFile = os.path.join(resourcesDirectory, '%T.MAIN')
+
+pathToEngineers = os.path.join(resourcesDirectory, 'Engineers.txt')
+pathToProgInfo = os.path.join(resourcesDirectory, 'ProgInfo.txt')
 
 #----------------------------------------------------------------------------------------------------------------------
 @dataclass
@@ -22,19 +20,43 @@ class Curves():
 #----------------------------------------------------------------------------------------------------------------------
 class Model():
     def __init__(self):
-       self.__indexes = []
-       self.__curves = []
-       self.__loadCurve = []
-       self.__noEngineerErrorMessage = "Please selected an Engineer!"
-       self.__successfulExportMessage = "Curves have been Exported!"
+        self.__indexes = []
+        self.__curves = []
+        self.__loadCurve = []
+        self.__noEngineerErrorMessage = "Please selected an Engineer!"
+        self.__successfulExportMessage = "Curves have been Exported!"
+        self.__engineers = []
+        self.__edsFilePath = ''
+        self.__outputsBasePath = ''
+
+        self.__readResources()
+    
+    #----------------------------------------------------------------------------------------------------------------------
+    # Reads all the required external resources 
+    #----------------------------------------------------------------------------------------------------------------------
+    def __readResources(self):
+        engineersFile = open(pathToEngineers, 'r') 
+        self.__engineers = engineersFile.read().split('\n')
+        engineersFile.close()
+
+        progInfoFile = open(pathToProgInfo, 'r')
+        progInfo = progInfoFile.read().split('\n')
+        progInfoFile.close() 
+
+        self.__edsFilePath = os.path.join(progInfo[0], '%T.MAIN')
+        self.__outputsBasePath = progInfo[1]
+
+    #----------------------------------------------------------------------------------------------------------------------
+    def getEngineers(self):
+        return self.__engineers
 
     #----------------------------------------------------------------------------------------------------------------------
     def generateCurveFiles(self, eng):
         #Return false if no engineer is selected
         if self.__engineerExists(eng) == False:
-            
             return [False, self.__noEngineerErrorMessage]
         
+        #Read the Main File with all the design parameters
         self.__readDesign()
 
         curve1LineNumbers = []
@@ -62,24 +84,25 @@ class Model():
         return [True, self.__successfulExportMessage]
     
     #----------------------------------------------------------------------------------------------------------------------
+    # Checks if the selected Engineer is part of the list of engineers or not
+    #----------------------------------------------------------------------------------------------------------------------
     def __engineerExists(self, eng):
-        if eng in ['GM','PMV','DM','PR','DW']:
+        if eng in self.__engineers:     
             return True
         else:
             return False
 
     #----------------------------------------------------------------------------------------------------------------------    
     def __readDesign(self):
-        fileName = os.path.join(pathToEDSFile)
-        file = open(fileName)
+        file = open(self.__edsFilePath)
         self.__fileContent = file.read().split('\n')
         index = 0
         for line in self.__fileContent:
             if line != "":
-                if line[1:3] == '1.':
+                if line[1:3] == '1.':                   #Determines the row number at which the run up table starts in the main file.          
                     self.__indexes.append(index)
                 elif line[0:8] == 'Pull-out':
-                    self.__indexes.append(index - 1)
+                    self.__indexes.append(index - 1)    #Determines the row number at which the run up table ends in the main file.
             index = index + 1
         
         #return len(self.__fileContent)
@@ -187,7 +210,7 @@ class Model():
         #speedTorquePath = os.path.join(resourcesDirectory, fileNames[0])
         #speedCurrentPath = os.path.join(resourcesDirectory, fileNames[1])
         
-        filePath = os.path.join(resourcesDirectory, fileName)
+        filePath = os.path.join(self.__outputsBasePath, fileName)
 
         file =  open(filePath, 'w')
         #file2 = open(speedCurrentPath, 'w')
@@ -197,3 +220,6 @@ class Model():
         
         #file2.close()
         file.close()
+
+#if __name__ == '__main__':
+#    model = Model()

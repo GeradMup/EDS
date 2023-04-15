@@ -1,10 +1,11 @@
+import tkinter 
 from tkinter import *
 from tkinter import messagebox
 
 class Views():
     #-----------------------------------------------------------------------------------------------------------------------------------------------
     #Event Handlers will be call back functions that will be called when events happen on the window
-    def __init__(self, eventHandlers = []):
+    def __init__(self, eventHandlers = [], engineers = []):
         self.__createWindow()   #Creates the main window
 
         self.__selectedEngineer = StringVar()
@@ -17,7 +18,7 @@ class Views():
         self.__optionChangeCallback = eventHandlers[1]
 
         self.__addButton()
-        self.__addDropdownMenu(['DW','PMV','PR','DM','GM'])
+        self.__addDropdownMenu(engineers)
         self.__addCheckboxes()
 
         self.__placeWidgets()
@@ -29,7 +30,7 @@ class Views():
         self.__mainWindow = Tk()
         self.__mainWindow.eval('tk::PlaceWindow . center')      #Place window in the center of the screen
 
-        self.__mainWindow.geometry("500x300")           #sets the window size (Length x Height)
+        self.__mainWindow.geometry("300x200")           #sets the window size (Length x Height)
         self.__mainWindow.resizable(False, False)       #Users cannot resize either the length or width of the window
         self.__mainWindow.title("EDS Curves Version 0.1")
         self.__backgroundColour = "#%02x%02x%02x" % (240, 240, 237)
@@ -69,8 +70,8 @@ class Views():
 
     #-----------------------------------------------------------------------------------------------------------------------------------------------
     def __placeWidgets(self):
-        self.__okButton.place(x=20,y=230)
-        self.__dropdownMenu.place(x=20,y=190)
+        self.__okButton.place(x=30,y=100)
+        self.__dropdownMenu.place(x=30,y=50)
         #self.__torqueSpeedCheck.place(x=20, y=20)
         #self.__currentSpeedCheck.place(x=20,y=50)
         #self.__withstandCheck.place(x=20,y=80)
