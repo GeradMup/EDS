@@ -1,6 +1,7 @@
 import csv
 import os
 from dataclasses import dataclass
+import FTP as ftp
 
 modelsDirectory = os.path.dirname(__file__)
 resourcesDirectory = os.path.join(modelsDirectory, '../../Resources')
@@ -32,6 +33,7 @@ class Model():
         self.__stallCurrent = []
         self.__noEngineerErrorMessage = "Please selected an Engineer!"
         self.__successfulExportMessage = "Curves have been Exported!"
+        self.__failedToImportEdsErrorMessage = "Failed to import EDS Files!"
         self.__edsFilePath = ''
         self.__withstandFilePath = ''
         self.__outputsBasePath = ''
@@ -47,12 +49,9 @@ class Model():
         engineersFile.close()
 
         progInfoFile = open(pathToProgInfo, 'r')
-        progInfo = progInfoFile.read().split('\n')
+        self.__progInfo = progInfoFile.read().split('\n')
         progInfoFile.close() 
-
-        self.__edsFilePath = os.path.join(progInfo[0], '%T.MAIN')
-        self.__withstandFilePath = os.path.join(progInfo[0], '%T.WTHSTND')
-        self.__outputsBasePath = progInfo[1]
+        self.__outputsBasePath = self.__progInfo[1]
 
     #----------------------------------------------------------------------------------------------------------------------
     def getEngineers(self):
@@ -64,9 +63,16 @@ class Model():
         if self.__engineerExists(eng) == False:
             return [False, self.__noEngineerErrorMessage]
         
+        importFolder = os.path.join(self.__progInfo[0], eng)
+        importEdsFiles = ftp.downloadEdsFiles(eng, importFolder)
+
+        if importEdsFiles[0] == False:
+            return [False, self.__failedToImportEdsErrorMessage]
+        
+        
         #Read the Main File with all the design parameters
-        self.__readEDSFile()
-        self.__readWithstandFile()
+        self.__readEDSFile(eng)
+        self.__readWithstandFile(eng)
 
         curve1LineNumbers = []
         curve2LineNumbers = []
@@ -103,8 +109,9 @@ class Model():
             return False
 
     #----------------------------------------------------------------------------------------------------------------------    
-    def __readEDSFile(self):
+    def __readEDSFile(self, eng):
         #First we will read the EDS file and process it
+        self.__edsFilePath = os.path.join(self.__progInfo[0], eng, '%T.MAIN')
         edsfile = open(self.__edsFilePath, 'r')
         self.__edsfile = edsfile.read().split('\n')
         edsfile.close()
@@ -119,8 +126,9 @@ class Model():
             index = index + 1
 
     #----------------------------------------------------------------------------------------------------------------------   
-    def __readWithstandFile(self):
+    def __readWithstandFile(self, eng):
         #Next we will read the withstand model file and process it
+        self.__withstandFilePath = os.path.join(self.__progInfo[0], eng, '%T.WTHSTND')
         withstandFile = open(self.__withstandFilePath, 'r')
         self.__withstandFile = withstandFile.read().split('\n')
         withstandFile.close()

@@ -1,0 +1,229 @@
+RCE0501             3.1  ALSTOM S.A.   KG PRD 14 APR 2023 12:40  PAGE  1    .
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+Air Blow Fans - Marula Fan Motors #
+0
+2
+17
+2
+5 15
+1
+1
+11536.5 1 10
+1
+100 190 0 0 0 0 0 0
+51.7 190 0 0 0 0 0 0
+51.7 190 0 0 0 0 0 0
+101.7 190 0 0 0 0 0 0
+20 170 0 0 0 0 0 0
+20 170 0 0 0 0 0 0
+120 190 0 0 0 0 0 0
+120 193 0 0 0 0 0 0
+120 196.3 0 0 0 0 0 0
+120 200 0 0 0 0 0 0
+120 200 0 0 0 0 0 0
+120 196.3 0 0 0 0 0 0
+120 193 0 0 0 0 0 0
+120 190 0 0 0 0 0 0
+20 170 0 0 0 0 0 0
+20 170 0 0 0 0 0 0
+100 190 0 0 0 0 0 0
+0
+0
+0
+0
+8
+0
+1 0.0004 0.0004
+1 0.0008 0.0008
+1 0.001 0.001
+1 0.002 0.002
+1 0.003 0.003
+1 0.0035 0.0035
+1 0.004 0.004
+0
+2
+1800
+745
+0
+6
+6 1400 1400 1038 0 200 381.4 630.4 32 0.89 19890.66 21.62  10 0
+
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+
+            RCE0501 INPUT DATA for SHEET 6
+Number of arms                                  (NPOL) = 6 
+Spider length (mm)                              (HUBL) = 1400 
+Axial length of arms (mm)                        (PBL) = 1400 
+Axial length of punchings including endplates(mm)(PSL) = 1038
+Shaft borescope hole diameter (mm)               (BHD) = 0 
+Diameter of shaft (mm)                           (DAF) = 200
+Inner diameter of punchings (mm)                (DISP) = 381.4
+Outer diameter of punchings (mm)                 (DPF) = 630.4
+Arm width (mm)                                   (WPB) = 32
+Rim density factor                               (RDF) = 0.89
+UMP force for static calculation (N)            (UMPS) = 19890.66 
+UMP stiffness for dynamic calculation (MN/m)    (UMPD) = 21620
+Station number of rotor                          (NSR) = 10 
+Rotor forging                                   (DSTF) = 0
+RCE0501             3.1  ALSTOM S.A.   KG PRD 14 APR 2023 12:40  PAGE  3    .
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+
+
+TORSIONAL STIFFNESS = 9.3561 MN.m/rad
+
+NOTES
+-----
+
+
+(*) The torsional stiffness has been calculated between Station
+    No. 1 and the Point of Rigidity of the rotor assembly.
+
+
+(*) The Point of Rigidity is at the core centreline.
+
+
+(*) The torsional stiffnesses of any shoulder radii, extra
+    weights, extra moments of inertia or couplings have been
+    ignored.
+RCE0501             3.1  ALSTOM S.A.   KG PRD 14 APR 2023 12:40  PAGE  4    .
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+                  SHAFT STATIC DEFLECTIONS AND CRITICAL SPEEDS
+                  ============================================
+
+  BRG   LENGTH OF SPAN   MASS OF SPAN
+             (mm)              (kg)
+
+             325.1              71.07 
+    1
+            2400.             4219.33     (includes UMP) 
+    2
+             120.               25.67 
+
+Total length    2845.1  mm
+  Total mass    2287.79 kg
+   Total WR2     104.21 kg.m.m
+
+
+         Bearing loads include for total UMP of   19890.66 N
+Dynamic UMP is treated as negative stiffness of   21620.   N/mm
+RCE0501             3.1  ALSTOM S.A.   KG PRD 14 APR 2023 12:40  PAGE  5    .
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+
+ROTOR WITH ARMS ON SHAFT AND RING LAMINATIONS AT 10
+      MASS          WR2       EQUIVALENT
+       kg          kg.m.m.     DIAMETER
+
+     1960.49        102.69      272.13
+
+
+APPLIED TORQUES FOR STATIC DEFLECTIONS
+
+     11536.5 Nm, FROM   1 TO  10
+RCE0501             3.1  ALSTOM S.A.   KG PRD 14 APR 2023 12:40  PAGE  6    .
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+
+STATIC DEFLECTION TABLE
+                      MAX. PRINCIPAL
+      SHEAR  BENDING     STRESSES        DEFLECTIONS   DIST. FROM   BRG.
+ STN. FORCE  MOMENT   SHEAR  TENSILE   ANGULAR  LINEAR  L.H. END   REACT.
+  NO.  (N)    (NM)   (MN/M2) (MN/M2)  (RADIANS)  (MM)     (MM)      (N)
+   0              0     0.      0.      0.00037 -0.12         0
+        109
+   1             11     0.      0.      0.00037 -0.083      100
+        273
+   2             25     8.6     8.6     0.00037 -0.064      152
+        385
+   3             45     8.6     8.6     0.00037 -0.045      203
+        552
+   4            101    12.     12.1     0.00037 -0.007      305
+        680
+   5            115    12.     12.1     0.00037  0.         325    21427
+     -20713
+   6           -300    12.    -12.3     0.00037  0.007      345
+     -20565
+   7          -2767     8.8   -10.9     0.00036  0.051      465
+     -20300
+   8          -5204     9.    -12.7     0.00032  0.092      585
+     -20027
+   9          -7607     9.3   -14.4     0.00027  0.127      705
+     -19744
+  10          -9976     9.7   -16.1     0.0002   0.156      825
+     -19261
+             -13462     4.5    -7.9     0.00016  0.189     1006
+     -16563
+             -15611     4.9    -8.9     0.00013  0.207     1136
+     -11842
+             -17148     5.2    -9.6     0.00009  0.221     1266
+      -7122
+             -18072     5.4   -10.      0.00004  0.23      1395
+      -2401
+             -18384     5.5   -10.1     0.       0.233     1525
+       2319
+             -18083     5.4   -10.     -0.00004  0.23      1655
+       7039
+             -17169     5.2    -9.6    -0.00009  0.221     1785
+      11760
+             -15643     4.9    -8.9    -0.00013  0.208     1914
+      16480
+             -13505     4.5    -7.9    -0.00016  0.189     2044
+      19179
+  10         -10034     6.4   -12.8    -0.0002   0.156     2225
+      19661
+  11          -7674     5.2   -10.3    -0.00027  0.128     2345
+      19945
+  12          -5281     3.7    -7.5    -0.00032  0.092     2465
+      20218
+  13          -2855     2.1    -4.2    -0.00036  0.051     2585
+      20483
+  14           -397     0.4    -0.8    -0.00037  0.007     2705
+      20630
+  15             16     0.      0.     -0.00037  0.        2725    20899
+       -234
+RCE0501             3.1  ALSTOM S.A.   KG PRD 14 APR 2023 12:40  PAGE  7    .
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+
+STATIC DEFLECTION TABLE
+                      MAX. PRINCIPAL
+      SHEAR  BENDING     STRESSES        DEFLECTIONS   DIST. FROM   BRG.
+ STN. FORCE  MOMENT   SHEAR  TENSILE   ANGULAR  LINEAR  L.H. END   REACT.
+  NO.  (N)    (NM)   (MN/M2) (MN/M2)  (RADIANS)  (MM)     (MM)      (N)
+  16             11     0.      0.     -0.00037 -0.007     2745
+       -109
+  17              0     0.     -0.     -0.00037 -0.045     2845
+
+BENDING AT END ARMS    12.7     12.8 MN/m^2
+RCE0501             3.1  ALSTOM S.A.   KG PRD 14 APR 2023 12:40  PAGE  8    .
+
+QD35187C, 50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+
+
+  BEARING
+CASE   TYPE     FLEXIBILITIES
+                     1             2
+  1    RIGID
+  2  FLEXIBLE     4.00000E-04  4.00000E-04  
+  3  FLEXIBLE     8.00000E-04  8.00000E-04  
+  4  FLEXIBLE     1.00000E-03  1.00000E-03  
+  5  FLEXIBLE     2.00000E-03  2.00000E-03  
+  6  FLEXIBLE     3.00000E-03  3.00000E-03  
+  7  FLEXIBLE     3.50000E-03  3.50000E-03  
+  8  FLEXIBLE     4.00000E-03  4.00000E-03  
+
+
+CASE   CRITICAL SPEEDS
+           1         2
+  1       2720     14766 
+  2       2664     14243 
+  3       2610     13674 
+  4       2584     13378 
+  5       2462     11889 
+  6       2352     10595 
+  7       2301     10053 
+  8       2252      9575 
