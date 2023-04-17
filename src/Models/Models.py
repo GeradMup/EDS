@@ -72,7 +72,7 @@ class Model():
         
         #Read the Main File with all the design parameters
         self.__readEDSFile(eng)
-        self.__readWithstandFile(eng)
+        #self.__readWithstandFile(eng)
 
         curve1LineNumbers = []
         curve2LineNumbers = []
@@ -93,7 +93,7 @@ class Model():
         self.__extractEDSCurves(curve1LineNumbers)
         self.__extractEDSCurves(curve2LineNumbers)
         self.__extractEDSCurves(curve3LineNumbers)
-        self.__extractWithstandCurves()
+        #self.__extractWithstandCurves()
 
         self.__generateCsvFiles(eng)
 
@@ -240,11 +240,11 @@ class Model():
         self.__createCSV(self.__loadCurve[0], self.__loadCurve[1], self.__loadPath)
 
         #Save the Full Speed Hot Stall Time Curve
-        self.__createCSV(self.__fullSpeedStallCurrent, self.__fullSpeedStallTime, self.__fullSpeedHotStallPath)
+        #self.__createCSV(self.__fullSpeedStallCurrent, self.__fullSpeedStallTime, self.__fullSpeedHotStallPath)
         #Save the Cold Stall Time Curve
-        self.__createCSV(self.__stallCurrent, self.__coldStallTime, self.__coldStallTimePath)
+        #self.__createCSV(self.__stallCurrent, self.__coldStallTime, self.__coldStallTimePath)
         #Save the Hot Stall Time Curve
-        self.__createCSV(self.__stallCurrent, self.__hotStallTime, self.__hotStallTimePath)
+        #self.__createCSV(self.__stallCurrent, self.__hotStallTime, self.__hotStallTimePath)
 
     #----------------------------------------------------------------------------------------------------------------------
     #Creates a curve with zeroes. This is used if the user choose to ommit some of the voltage scalers: nvolt = 1 or nvolt = 2

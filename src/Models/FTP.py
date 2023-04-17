@@ -21,6 +21,7 @@ def downloadEdsFiles(eng, outputsFolder):
 
     #login to the server.
     ftp.login(credentials.userame, credentials.password)
+    #ftp.prot_p()
 
     #Some servers are configured to only accept only SSL connections
     #change the connections to the following
@@ -28,29 +29,30 @@ def downloadEdsFiles(eng, outputsFolder):
     #ftp.prot_p()       =>    This line must go after logging in
 
     #Navigate to the correct directory on the server
-    ftp.cwd(credentials.usefolder)
+    #ftp.cwd(credentials.usefolder)
 
     #Display all the filenames in the current working directory
     filenames = ftp.nlst()
     print(filenames)
 
+    
     mainFilename = '%T.MAIN'
     withstandFileName = '%T.WTHSTND'
-    pathToSaveMainFile = outputsFolder + '/' + mainFilename
-    pathToSaveWithstandFile = outputsFolder + '/' + withstandFileName
+    pathToSaveMainFile = outputsFolder + '\\' + mainFilename
+    pathToSaveWithstandFile = outputsFolder + '\\' + withstandFileName
 
     with open(pathToSaveMainFile, 'wb') as file:
         returnCode = ftp.retrbinary(f"RETR {mainFilename}", file.write)
 
-    with open(pathToSaveWithstandFile, 'wb') as file:
-        returnCode = ftp.retrbinary(f"RETR {withstandFileName}", file.write)
+    #with open(pathToSaveWithstandFile, 'wb') as file:
+    #    returnCode = ftp.retrbinary(f"RETR {withstandFileName}", file.write)
     
     ftp.quit()
 
     if returnCode.startswith("226"):
-        return [False, 'Failed to download main file']
+        return [True, '']
     else:
-        return [True, ' ']
+        return [True, 'Failed to download main file']
 
     
 
@@ -58,19 +60,20 @@ def getLoginCredentials(eng):
     credentials = Credentials()
     credentials.port = 21
     credentials.hostname = 'eds_1'
-    baseFolder = 'Folder'
-    credentials.usefolder = baseFolder + '/' + eng
+    baseFolder = 'home/users'
+    
     
     if eng == 'GM':
         credentials.userame = 'kg'
         credentials.password = 'krakus'
+        credentials.usefolder = baseFolder + '/' + 'kg'
         
     elif eng == 'PMV':
         credentials.userame = 'kg'
         credentials.password = 'kgodyn'
     elif eng == 'DM':
-        credentials.userame = 'kg'
-        credentials.password = 'kgodyn'
+        credentials.userame = 'mkm'
+        credentials.password = 'Keletso01'
     elif eng == 'PR':
         credentials.userame = 'kg'
         credentials.password = 'kgodyn'
