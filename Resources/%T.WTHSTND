@@ -1,65 +1,122 @@
-WTHSTND   EDM2358 version 5.03   PRD   KG    14 APR 2023 12:41  PAGE  1     .
+WTHSTND   EDM2358 version 5.03   PRD   KG    17 APR 2023 17:35  PAGE  1     .
 
-50510/G3 -UD500/160 900KW 8P 11KV 8P 50HZ J=2600
+50869/M3 -UN450/140 1492KW 4P 3KV 710CL VSD 1.15SF
           THIS MODULE IS FOR TRIAL USE ONLY
           IT IS NOT FINISHED - CHECK RESULTS CAREFULLY
-Cage Induction Motor 900kW 8 Poles 11kV 50Hz 745 rev/min
-Project: Air Blow Fans - Marula Fan Motors
-SO. No.: QD35187C
+Cage Induction Motor 1492kW 4 Poles 3kV 50Hz 1490 rev/min
+Project: MEKOROT - KISALON J2 UNIT 6 & 7 PUMP STATION
+SO. No.: QD35205
 
 Input data
-SCD    Stator full load current density                         3.07 A/mm2
+SCD    Stator full load current density                         3.68 A/mm2
 KCIR   Stator AC/DC ratio for circulating loss                  1 pu
 Calc temp rise by resistance at full load above external air/water 80 K
-TCOOL  Cooler differential                                      20 K
-VENT   Ventilation method                                       DER
-Calculated endwdg temp rise at full load above inlet air :
-        80 - 20 =                                               60 K
+Estimated internal air temp rise                                25 K
+TCOOL  Cooler differential                                      10 K
+VENT   Ventilation method                                       SER
+Calculated endwdg temp rise at full load above internal air :
+        80 - 25 - 10 =                                          45 K
 Permitted additional rise rise at overload                      10 K
-POT    Pull out torque (for max stator withstand current)       2.72 pu
-ILINE  Calculated full load stator current                      60.49 pu
-QFLI   Quoted full load stator current                          62 pu
-ISTART Saturated locked rotor current                           7.12 pu
-       Quoted locked rotor current                              6.5 pu
+POT    Pull out torque (for max stator withstand current)       2.23 pu
+ILINE  Calculated full load stator current                      333.74 pu
+QFLI   Quoted full load stator current                          337 pu
+ISTART Saturated locked rotor current                           6.03 pu
+       Quoted locked rotor current                              6 pu
 (Used to determine max current for calculation)
 
 Results
-Endwdg Adiabatic rise                                           0.061 K/Sec
-Endwdg thermal time constant = 60/(0.061x60) = 16.5 Mins
-Specified value Endwdg thermal time constant used for calcs     16.5 Mins
+Endwdg Adiabatic rise                                           0.087 K/Sec
+Endwdg thermal time constant = 45/(0.087x60) = 8.58 Mins
+Specified value Endwdg thermal time constant used for calcs     8.58 Mins
 NB. Endwinding rise is assumed the same as the rise by resistance.
-Final temp rise after infinite time (includes 10K overtemp)     70 K
-Ratio of Final temp rise/Rated temp rise                        1.167 
+Final temp rise after infinite time (includes 10K overtemp)     55 K
+Ratio of Final temp rise/Rated temp rise                        1.222 
 
 Stator values with motor running at full speed
 Overload       -----Time----
 Current pu     Secs     Mins
-   1.1         3296     54.9
-   1.15        2117     35.3
-   1.2         1645     27.4
-   1.25        1359     22.7
-   1.3         1161     19.3
-   1.35        1012     16.9
-   1.4          895     14.9
-   1.45         801     13.4
-   1.5          724     12.1
-   1.6          602     10. 
-   1.7          512      8.5
-   1.8          442      7.4
-   1.9          386      6.4
-   2.           341      5.7
-   2.2          273      4.6
-   2.4          224      3.7
-   2.6          188      3.1
-   2.8          160      2.7
-   3.           137      2.3
-   4.            75      1.2
+   1.15        1328     22.1
+   1.2          972     16.2
+   1.25         784     13.1
+   1.3          661     11. 
+   1.35         572      9.5
+   1.4          503      8.4
+   1.45         448      7.5
+   1.5          403      6.7
+   1.6          334      5.6
+   1.7          283      4.7
+   1.8          244      4.1
+   1.9          213      3.5
+   2.           188      3.1
+   2.2          150      2.5
+   2.4          123      2. 
+   2.6          103      1.7
+   2.8           87      1.5
 Stall Hot and Cold
- 3.1    65.95   87.93
- 3.6    48.9    65.2 
- 4.1    37.7    50.27
- 4.6    29.95   39.93
- 5.1    24.37   32.49
- 5.6    20.21   26.95
- 6.1    17.03   22.71
- 6.5    15.     20.  
+ 2.9    64.21   85.61
+ 3.4    46.71   62.28
+ 3.9    35.5    47.34
+ 4.4    27.89   37.19
+ 4.9    22.49   29.99
+ 5.4    18.52   24.69
+ 5.9    15.51   20.68
+ 6.     15.     20.  
+Starting curves
+Current pu  Time Secs
+1.0   15.7 
+1.0   10.7 
+ 1.18   10.63
+ 1.62   10.68
+ 2.25   10.54
+ 2.77   10.49
+ 3.18   10.43
+ 3.52   10.38
+ 3.79   10.33
+ 4.     10.27
+ 4.18   10.22
+ 4.32   10.16
+ 4.54   10.06
+ 4.7     9.95
+ 4.81    9.84
+ 4.9     9.74
+ 4.97    9.63
+ 5.18    9.1 
+ 5.3     8.56
+ 5.4     8.02
+ 5.48    7.49
+ 5.55    6.95
+ 5.61    6.42
+ 5.67    5.89
+ 5.72    5.35
+ 5.76    4.81
+ 5.8     4.28
+ 5.83    3.74
+ 5.86    3.21
+1.25  30.  
+1.25  25.  
+ 1.4    24.95
+ 1.95   24.62
+ 2.4    24.5 
+ 2.76   24.38
+ 3.05   24.25
+ 3.28   24.12
+ 3.47   24.  
+ 3.62   23.88
+ 3.75   23.75
+ 3.94   23.5 
+ 4.07   23.25
+ 4.17   23.  
+ 4.24   22.75
+ 4.31   22.5 
+ 4.49   21.25
+ 4.59   20.  
+ 4.68   18.75
+ 4.75   17.5 
+ 4.81   16.25
+ 4.86   15.  
+ 4.91   13.75
+ 4.95   12.5 
+ 4.99   11.25
+ 5.03   10.  
+ 5.06    8.75
+ 5.08    7.5 
