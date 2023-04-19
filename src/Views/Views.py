@@ -9,10 +9,10 @@ class Views():
         self.__createWindow()   #Creates the main window
 
         self.__selectedEngineer = StringVar()
-        self.__torqueSpeedSelected = IntVar()
-        self.__currentSpeedSelected = IntVar()
+        self.__torqueCurrentSpeedSelected = IntVar()
         self.__withstandTimeSelected = IntVar()
-        self.__criticalSpeedSelected = IntVar()
+        #self.__criticalSpeedSelected = IntVar()
+        #self.__currentSpeedSelected = IntVar()
 
         self.__enterButtonCallback = eventHandlers[0]
         self.__optionChangeCallback = eventHandlers[1]
@@ -30,7 +30,7 @@ class Views():
         self.__mainWindow = Tk()
         self.__mainWindow.eval('tk::PlaceWindow . center')      #Place window in the center of the screen
 
-        self.__mainWindow.geometry("300x200")           #sets the window size (Length x Height)
+        self.__mainWindow.geometry("400x200")           #sets the window size (Length x Height)
         self.__mainWindow.resizable(False, False)       #Users cannot resize either the length or width of the window
         self.__mainWindow.title("EDS Curves Version 0.1")
         self.__backgroundColour = "#%02x%02x%02x" % (240, 240, 237)
@@ -41,20 +41,20 @@ class Views():
         return self.__selectedEngineer.get()
     
     #-----------------------------------------------------------------------------------------------------------------------------------------------
-    def getTorqueSpeed(self):
-        return self.__torqueSpeedSelected.get()
+    def getCurrentTorqueSpeed(self):
+        return self.__torqueCurrentSpeedSelected.get()
     
     #-----------------------------------------------------------------------------------------------------------------------------------------------
-    def getCurrentSpeed(self):
-        return self.__currentSpeedSelected.get()
+    #def getCurrentSpeed(self):
+        #return self.__currentSpeedSelected.get()
     
     #-----------------------------------------------------------------------------------------------------------------------------------------------
     def getWithstandTime(self):
         return self.__withstandTimeSelected.get()
     
     #-----------------------------------------------------------------------------------------------------------------------------------------------
-    def getCriticalSpeed(self):
-        return self.__criticalSpeedSelected.get()
+    #def getCriticalSpeed(self):
+    #    return self.__criticalSpeedSelected.get()
     
     #-----------------------------------------------------------------------------------------------------------------------------------------------
     def getWindow(self):
@@ -70,12 +70,13 @@ class Views():
 
     #-----------------------------------------------------------------------------------------------------------------------------------------------
     def __placeWidgets(self):
-        self.__okButton.place(x=30,y=100)
-        self.__dropdownMenu.place(x=30,y=50)
-        #self.__torqueSpeedCheck.place(x=20, y=20)
-        #self.__currentSpeedCheck.place(x=20,y=50)
-        #self.__withstandCheck.place(x=20,y=80)
+
+        self.__torqueCurrentSpeedCheck.place(x=20, y=15)
+        #self.__withstandCheck.place(x=20,y=45)
+        self.__dropdownMenu.place(x=20,y=80)
+        self.__okButton.place(x=20,y=120)
         #self.__criticalSpeedCheck.place(x=20,y=110)
+        #self.__currentSpeedCheck.place(x=20,y=50)
 
     #-----------------------------------------------------------------------------------------------------------------------------------------------
     #Add a button to the window
@@ -101,15 +102,15 @@ class Views():
             )
 
     def __addCheckboxes(self):
-        self.__torqueSpeedCheck = Checkbutton(
+        self.__torqueCurrentSpeedCheck = Checkbutton(
             self.__mainWindow, 
-            text='Torque vs Speed',
-            variable=self.__torqueSpeedSelected,    #variable to store the state of the checkbox
+            text='Torque and Current vs Speed',
+            variable=self.__torqueCurrentSpeedSelected,    #variable to store the state of the checkbox
             onvalue=1, 
             offvalue=0,
             font='Consolas 12'
             )
-        
+        '''
         self.__currentSpeedCheck = Checkbutton(
             self.__mainWindow, 
             text='Current vs Speed',
@@ -118,16 +119,16 @@ class Views():
             offvalue=0,
             font='Consolas 12'
             )
-        
+        '''
         self.__withstandCheck = Checkbutton(
             self.__mainWindow, 
-            text='Withstnad vs Time',
+            text='Withstand Current vs Time',
             variable=self.__withstandTimeSelected,  #variable to store the state of the checkbox
             onvalue=1, 
             offvalue=0,
             font='Consolas 12'
             )
-        
+        '''
         self.__criticalSpeedCheck = Checkbutton(
             self.__mainWindow, 
             text='Speed vs Torque',
@@ -136,7 +137,7 @@ class Views():
             offvalue=0,
             font='Consolas 12'
             )
-
+        '''
     #-----------------------------------------------------------------------------------------------------------------------------------------------   
     def showError(self, message):
         messagebox.showerror("Error", message)

@@ -34,6 +34,7 @@ class Model():
         self.__noEngineerErrorMessage = "Please selected an Engineer!"
         self.__successfulExportMessage = "Curves have been Exported!"
         self.__failedToImportEdsErrorMessage = "Failed to import EDS Files!"
+        self.__noCurveSelectedErrorMessage = "Please select a curve that you like to import from the EDS!"
         self.__edsFilePath = ''
         self.__withstandFilePath = ''
         self.__outputsBasePath = ''
@@ -58,13 +59,16 @@ class Model():
         return self.__engineers
 
     #----------------------------------------------------------------------------------------------------------------------
-    def generateCurveFiles(self, eng):
+    def generateCurveFiles(self, eng, currentTorqueSpeed, withstand):
         #Return false if no engineer is selected
         if self.__engineerExists(eng) == False:
             return [False, self.__noEngineerErrorMessage]
         
+        if currentTorqueSpeed == 0 and withstand == 0:
+            return [False, self.__noCurveSelectedErrorMessage]
+        
         importFolder = os.path.join(self.__progInfo[0], eng)
-        importEdsFiles = ftp.downloadEdsFiles(eng, importFolder)
+        importEdsFiles = ftp.downloadEdsFiles(eng, importFolder, currentTorqueSpeed, withstand)
 
         if importEdsFiles[0] == False:
             return [False, self.__failedToImportEdsErrorMessage]

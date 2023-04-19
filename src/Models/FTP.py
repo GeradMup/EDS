@@ -9,7 +9,7 @@ class Credentials():
     hostname:str = ""
     usefolder:str = ""
 
-def downloadEdsFiles(eng, outputsFolder):
+def downloadEdsFiles(eng, outputsFolder, currentTorqueSpeed, withstand):
     #Connection parameters
     credentials = getLoginCredentials(eng)
 
@@ -32,8 +32,8 @@ def downloadEdsFiles(eng, outputsFolder):
     #ftp.cwd(credentials.usefolder)
 
     #Display all the filenames in the current working directory
-    filenames = ftp.nlst()
-    print(filenames)
+    #filenames = ftp.nlst()
+    #print(filenames)
 
     
     mainFilename = '%T.MAIN'
@@ -41,18 +41,20 @@ def downloadEdsFiles(eng, outputsFolder):
     pathToSaveMainFile = outputsFolder + '\\' + mainFilename
     pathToSaveWithstandFile = outputsFolder + '\\' + withstandFileName
 
-    with open(pathToSaveMainFile, 'wb') as file:
-        returnCode = ftp.retrbinary(f"RETR {mainFilename}", file.write)
+    if currentTorqueSpeed == 1:
+        with open(pathToSaveMainFile, 'wb') as file:
+            returnCode = ftp.retrbinary(f"RETR {mainFilename}", file.write)
 
-    #with open(pathToSaveWithstandFile, 'wb') as file:
-    #    returnCode = ftp.retrbinary(f"RETR {withstandFileName}", file.write)
+    if withstand == 1:
+        with open(pathToSaveWithstandFile, 'wb') as file:
+            returnCode = ftp.retrbinary(f"RETR {withstandFileName}", file.write)
     
     ftp.quit()
 
     if returnCode.startswith("226"):
         return [True, '']
     else:
-        return [True, 'Failed to download main file']
+        return [True, 'Failed to download eds file']
 
     
 

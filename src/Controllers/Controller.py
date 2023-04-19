@@ -30,7 +30,9 @@ class Controller():
     #Method called whenever the up arrow is pressed on the keyboard
     def __enterKey(self):
         self.__engineer = self.__views.getEngineer()
-        curvesGenerated = self.__model.generateCurveFiles(self.__engineer)
+        currentTorqueSpeed = self.__views.getCurrentTorqueSpeed()
+        withstand = self.__views.getWithstandTime()
+        curvesGenerated = self.__model.generateCurveFiles(self.__engineer, currentTorqueSpeed, withstand)
 
         if curvesGenerated[0] == False:
             self.__views.showError(curvesGenerated[1]) 
