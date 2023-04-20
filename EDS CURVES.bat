@@ -1,2 +1,2 @@
 @echo off
-"C:\Python310\python.exe" "C:\Users\kgodyn\Documents\Programming\EDS\EDS\src\Controllers\Controller.py"
+"C:\Python310\python.exe" "T:\Shared\ACTOM DESP and MOTOR Proto Programme\EDS CURVES\src\Controllers\Controller.py"
