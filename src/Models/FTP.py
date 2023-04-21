@@ -29,7 +29,6 @@ def downloadEdsFiles(eng, outputsFolder, currentTorqueSpeed, withstand):
     #ftp.prot_p()       =>    This line must go after logging in
 
     #Navigate to the correct directory on the server
-    #ftp.cwd(credentials.usefolder)
 
     #Display all the filenames in the current working directory
     #filenames = ftp.nlst()
@@ -49,7 +48,7 @@ def downloadEdsFiles(eng, outputsFolder, currentTorqueSpeed, withstand):
         with open(pathToSaveWithstandFile, 'wb') as file:
             returnCode = ftp.retrbinary(f"RETR {withstandFileName}", file.write)
     
-    ftp.quit()
+    ftp.close()
 
     if returnCode.startswith("226"):
         return [True, '']
@@ -68,20 +67,23 @@ def getLoginCredentials(eng):
     if eng == 'GM':
         credentials.userame = 'kg'
         credentials.password = 'krakus'
-        credentials.usefolder = baseFolder + '/' + 'kg'
         
     elif eng == 'PMV':
-        credentials.userame = 'kg'
-        credentials.password = 'kgodyn'
+        credentials.userame = 'pmv'
+        credentials.password = 'viool'
+
     elif eng == 'DM':
         credentials.userame = 'mkm'
         credentials.password = 'Keletso01'
+    
     elif eng == 'PR':
-        credentials.userame = 'kg'
-        credentials.password = 'kgodyn'
+        credentials.userame = 'ra'
+        credentials.password = 'skud'
+    
     elif eng == 'DW':
         credentials.userame = 'kg'
         credentials.password = 'kgodyn'
+    
     elif eng == 'JN':
         credentials.userame = 'kg'
         credentials.password = 'kgodyn'

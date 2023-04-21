@@ -11,6 +11,7 @@ class Views():
         self.__selectedEngineer = StringVar()
         self.__torqueCurrentSpeedSelected = IntVar()
         self.__withstandTimeSelected = IntVar()
+
         #self.__criticalSpeedSelected = IntVar()
         #self.__currentSpeedSelected = IntVar()
 
@@ -22,6 +23,8 @@ class Views():
         self.__addCheckboxes()
 
         self.__placeWidgets()
+
+        
 
 
     #-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,6 +75,7 @@ class Views():
     def __placeWidgets(self):
 
         self.__torqueCurrentSpeedCheck.place(x=20, y=15)
+        self.__torqueCurrentSpeedCheck.select()
         #self.__withstandCheck.place(x=20,y=45)
         self.__dropdownMenu.place(x=20,y=80)
         self.__okButton.place(x=20,y=120)

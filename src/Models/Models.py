@@ -2,6 +2,8 @@ import csv
 import os
 from dataclasses import dataclass
 import FTP as ftp
+import numpy as np
+from scipy.interpolate import make_interp_spline
 
 modelsDirectory = os.path.dirname(__file__)
 resourcesDirectory = os.path.join(modelsDirectory, '../../Resources')
@@ -38,6 +40,8 @@ class Model():
         self.__edsFilePath = ''
         self.__withstandFilePath = ''
         self.__outputsBasePath = ''
+        self.__fullLoadTorque = 0
+        self.__fullLoadCurrent = 0
 
         self.__readResources()
     
@@ -123,10 +127,18 @@ class Model():
         index = 0
         for line in self.__edsfile:
             if line != "":
-                if line[1:3] == '1.':                   #Determines the row number at which the run up table starts in the main file.          
+                if line[1:3] == '1.':                           #Determines the row number at which the run up table starts in the main file.          
                     self.__edsFileIndexes.append(index)
                 elif line[0:8] == 'Pull-out':
-                    self.__edsFileIndexes.append(index - 1)    #Determines the row number at which the run up table ends in the main file.
+                    self.__edsFileIndexes.append(index - 1)     #Determines the row number at which the run up table ends in the main file.
+                elif line[0:8] == 'kW/m2 AC':                   #Determines the row number where the full load torque can be found
+                    flt = line[39:]
+                    flt = flt[:len(flt)-2]
+                    self.__fullLoadTorque = float(flt)
+                elif line[0:4] == 'WFAN':
+                    flc = line[61:]
+                    flc = flc[:len(flc)-3]
+                    self.__fullLoadCurrent = float(flc)
             index = index + 1
 
     #----------------------------------------------------------------------------------------------------------------------   
@@ -161,7 +173,7 @@ class Model():
         loadSpeed = []
         loadTorque = []
 
-        voltPoint = float(self.__edsfile[lineNumbers[0] - 4][37:40])
+        voltPoint = float(self.__edsfile[lineNumbers[0] - 4][37:41])
         speedArray.append(voltPoint)
         torqueArray.append(voltPoint)
         currentArray.append(voltPoint)
@@ -169,9 +181,15 @@ class Model():
         for linenumber in range(lineNumbers[0], lineNumbers[1]):
             line = self.__edsfile[linenumber]
             speed = float(line[:8])
-            torque = float(line[9:15])
-            current = float(line[16:22])
+            torque = float(line[9:15]) * self.__fullLoadTorque
+            current = float(line[16:22]) * self.__fullLoadCurrent
             load = float(line[38:44])
+
+            #Add an extra point between the first and second element so that the stiction point looks good.
+            if len(loadSpeed) == 2:
+                loadSpeed.append(loadSpeed[1])
+                loadTorque.append(loadTorque[1])
+                loadSpeed[1] = 0.99
 
             speedArray.append(speed)
             torqueArray.append(torque)
@@ -268,20 +286,20 @@ class Model():
     #----------------------------------------------------------------------------------------------------------------------
     def __createFilenames(self, eng):
         ext = '.csv'
-        self.__speedTorque1Path = 'slip_vs_torque_try_a' + '_' + eng + ext
-        self.__speedCurrent1Path = 'slip_vs_i_try_a' + '_' + eng + ext
+        self.__speedTorque1Path = 'slip_vs_torque_a' + '_' + eng + ext
+        self.__speedCurrent1Path = 'slip_vs_i_a' + '_' + eng + ext
 
-        self.__speedTorque2Path = 'slip_vs_torque_try_b' + '_' + eng + ext
-        self.__speedCurrent2Path = 'slip_vs_i_try_b' + '_' + eng + ext
+        self.__speedTorque2Path = 'slip_vs_torque_b' + '_' + eng + ext
+        self.__speedCurrent2Path = 'slip_vs_i_b' + '_' + eng + ext
 
-        self.__speedTorque3Path = 'slip_vs_torque_try_c' + '_' + eng + ext
-        self.__speedCurrent3Path = 'slip_vs_i_try_c' + '_' + eng + ext
+        self.__speedTorque3Path = 'slip_vs_torque_c' + '_' + eng + ext
+        self.__speedCurrent3Path = 'slip_vs_i_c' + '_' + eng + ext
         
-        self.__loadPath = 'slip_vs_load_try_' + eng + ext
+        self.__loadPath = 'slip_vs_load_' + eng + ext
 
-        self.__fullSpeedHotStallPath = 'full_speed_hot_stall_time_try_'+ eng + ext
-        self.__hotStallTimePath = 'hot_stall_time_try_' + eng + ext
-        self.__coldStallTimePath = 'cold_stall_time_try_' + eng + ext 
+        self.__fullSpeedHotStallPath = 'full_speed_hot_stall_time_'+ eng + ext
+        self.__hotStallTimePath = 'hot_stall_time_' + eng + ext
+        self.__coldStallTimePath = 'cold_stall_time_' + eng + ext 
 
     #----------------------------------------------------------------------------------------------------------------------
     def __createCSV(self, xValues, yValues, fileName):
@@ -289,15 +307,44 @@ class Model():
         #speedCurrentPath = os.path.join(resourcesDirectory, fileNames[1])
         
         filePath = os.path.join(self.__outputsBasePath, fileName)
+        #First convert the lists of x and y values into numpy arrays
+        smoothCurve = self.__smoothenCurve(xValues,yValues)
+        xList = smoothCurve[0]
+        yList = smoothCurve[1]
 
         file =  open(filePath, 'w')
-        #file2 = open(speedCurrentPath, 'w')
-        for index in range(0, len(xValues)):    
-            file.write("{},{}\n".format(xValues[index] , yValues[index]))
-            #file2.write("{},{}\n".format(curves.speed[index] , curves.current[index]))
+        for index in range(0, len(xList)):    
+            file.write("{},{}\n".format(xList[index] , yList[index]))
         
-        #file2.close()
         file.close()
+
+    def __smoothenCurve(self, xValues, yValues):
+        xList = []
+        yList = []
+        maxSplinePoints = 200
+        #If the curve contains all zeroes then we will not perform smoothening on it
+        if xValues[2] == 0:
+            xList = [0] * (maxSplinePoints)
+            yList = [0] * (maxSplinePoints)
+            return [xList, yList]
+        
+        #Read the x and y values but leave out the first element because it contains information about volt scalings
+        x = np.flip(np.array(xValues[1:]))  
+        y = np.flip(np.array(yValues[1:]))
+
+        #Here is where the interpolation actually happens.
+        #Do it for max elements - 1 to reserve space for the voltage scaling value for curves that use it otherwise the first 
+        #element of the original curve will be used.
+        x_y_Spline = make_interp_spline(x, y)
+        X_ = np.linspace(x.min(), x.max(), maxSplinePoints - 1)
+        Y_ = x_y_Spline(X_)
+
+        #Return the data back to lists and then add back the first element which could be the voltage scaling in some instances.
+        xList = X_.tolist()
+        yList = Y_.tolist()
+        xList.insert(0, xValues[0])
+        yList.insert(0, yValues[0])
+        return [xList, yList]
 
 #if __name__ == '__main__':
 #    model = Model()

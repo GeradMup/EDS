@@ -1,6 +1,5 @@
 
 import numpy as np
-import numpy as np
 from scipy.interpolate import make_interp_spline
 import matplotlib.pyplot as plt
  
