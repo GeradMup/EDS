@@ -326,9 +326,11 @@ class Model():
             return [xList, yList]
         stiction = 0
         #Read the x and y values but leave out the first element because it contains information about volt scalings
+        title = xValues[0]
         if str(xValues[0]) == load:
             stiction = yValues[1]
             yValues[1] = 0
+            title = load
     
         x = np.flip(np.array(xValues[1:]))  
         y = np.flip(np.array(yValues[1:]))
@@ -343,13 +345,12 @@ class Model():
         #Return the data back to lists and then add back the first element which could be the voltage scaling in some instances.
         xList = X_.tolist()
         yList = Y_.tolist()
-
-        xList.insert(0, load)
-        yList.insert(0, load)
+        xList.insert(0, title)
+        yList.insert(0, title)
         if str(xValues[0]) == load:
             xList[len(xList) - 1] = xValues[1]
             yList[len(yList) - 1] = stiction
-        
+
         return [xList, yList]
 
 #if __name__ == '__main__':
