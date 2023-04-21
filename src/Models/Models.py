@@ -177,6 +177,8 @@ class Model():
         speedArray.append(voltPoint)
         torqueArray.append(voltPoint)
         currentArray.append(voltPoint)
+        loadSpeed.append('Load')
+        loadTorque.append('Load')
 
         for linenumber in range(lineNumbers[0], lineNumbers[1]):
             line = self.__edsfile[linenumber]
@@ -184,12 +186,6 @@ class Model():
             torque = float(line[9:15]) * self.__fullLoadTorque
             current = float(line[16:22]) * self.__fullLoadCurrent
             load = float(line[38:44])
-
-            #Add an extra point between the first and second element so that the stiction point looks good.
-            if len(loadSpeed) == 2:
-                loadSpeed.append(loadSpeed[1])
-                loadTorque.append(loadTorque[1])
-                loadSpeed[1] = 0.99
 
             speedArray.append(speed)
             torqueArray.append(torque)
@@ -321,14 +317,19 @@ class Model():
     def __smoothenCurve(self, xValues, yValues):
         xList = []
         yList = []
+        load = 'Load'
         maxSplinePoints = 200
         #If the curve contains all zeroes then we will not perform smoothening on it
         if xValues[2] == 0:
             xList = [0] * (maxSplinePoints)
             yList = [0] * (maxSplinePoints)
             return [xList, yList]
-        
+        stiction = 0
         #Read the x and y values but leave out the first element because it contains information about volt scalings
+        if str(xValues[0]) == load:
+            stiction = yValues[1]
+            yValues[1] = 0
+    
         x = np.flip(np.array(xValues[1:]))  
         y = np.flip(np.array(yValues[1:]))
 
@@ -342,8 +343,13 @@ class Model():
         #Return the data back to lists and then add back the first element which could be the voltage scaling in some instances.
         xList = X_.tolist()
         yList = Y_.tolist()
-        xList.insert(0, xValues[0])
-        yList.insert(0, yValues[0])
+
+        xList.insert(0, load)
+        yList.insert(0, load)
+        if str(xValues[0]) == load:
+            xList[len(xList) - 1] = xValues[1]
+            yList[len(yList) - 1] = stiction
+        
         return [xList, yList]
 
 #if __name__ == '__main__':
