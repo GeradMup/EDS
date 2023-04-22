@@ -148,7 +148,7 @@ class Model():
 
     #----------------------------------------------------------------------------------------------------------------------   
     def __readWithstandFile(self, eng):
-        self.__withstandFilePath = os.path.join(self.__progInfo[0], eng, '%T.WTHSTND')
+        self.__withstandFilePath = os.path.join(self.__progInfo[0], eng, '%T2.WTHSTND')
         withstandFile = open(self.__withstandFilePath, 'r')
         self.__withstandFile = withstandFile.read().split('\n')
         withstandFile.close()
