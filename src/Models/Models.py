@@ -28,8 +28,6 @@ class Model():
         self.__curves = []
         self.__loadCurve = []
         self.__engineers = []
-        self.__fullSpeedStallCurrent = []
-        self.__fullSpeedStallTime = []
         self.__noEngineerErrorMessage = "Please selected an Engineer!"
         self.__successfulExportMessage = "Curves have been Exported!"
         self.__failedToImportEdsErrorMessage = "Failed to import EDS Files!"
@@ -60,24 +58,38 @@ class Model():
         return self.__engineers
 
     #----------------------------------------------------------------------------------------------------------------------
-    def generateCurveFiles(self, eng, currentTorqueSpeed, withstand):
+    def generateCurveFiles(self, eng, edsMain, withstand):
+
+        self.__createFilenames(eng)     #Creates all the file names that will be used for saving the csv files
         #Return false if no engineer is selected
         if self.__engineerExists(eng) == False:
             return [False, self.__noEngineerErrorMessage]
         
-        if currentTorqueSpeed == 0 and withstand == 0:
+        if edsMain == 0 and withstand == 0:
             return [False, self.__noCurveSelectedErrorMessage]
         '''
         importFolder = os.path.join(self.__progInfo[0], eng)
-        importEdsFiles = ftp.downloadEdsFiles(eng, importFolder, currentTorqueSpeed, withstand)
+        importEdsFiles = ftp.downloadEdsFiles(eng, importFolder, edsMain, withstand)
 
         if importEdsFiles[0] == False:
             return [False, self.__failedToImportEdsErrorMessage]
         '''
-        
-        #Read the Main File with all the design parameters
+        #User is trying to get the current and torque vs speed files from the eds
+        if edsMain == 1:   
+            self.__edsFiles(eng)
+            self.__generateTorqueCurrentSpeedFiles()
+
+        #User is tring to get the curves from the withstand module
+        if withstand == 1:
+            self.__readWithstandFile(eng)
+            self.__extractWithstandCurves()
+            self.__generateWithstandFiles()
+
+        return [True, self.__successfulExportMessage]
+    
+    #HANDLES THE STEPS FOR EXTRACTNG CURVES FROM THE EDS FILE
+    def __edsFiles(self, eng):
         self.__readEDSFile(eng)
-        self.__readWithstandFile(eng)
 
         curve1LineNumbers = []
         curve2LineNumbers = []
@@ -94,16 +106,11 @@ class Model():
         
         elif len(self.__edsFileIndexes) == 2:      #Only the 100% Voltage point is available
             curve1LineNumbers = [self.__edsFileIndexes[0], self.__edsFileIndexes[1]]
-        
+
         self.__extractEDSCurves(curve1LineNumbers)
         self.__extractEDSCurves(curve2LineNumbers)
         self.__extractEDSCurves(curve3LineNumbers)
-        self.__extractWithstandCurves()
 
-        self.__generateCsvFiles(eng)
-
-        return [True, self.__successfulExportMessage]
-    
     #----------------------------------------------------------------------------------------------------------------------
     # Checks if the selected Engineer is part of the list of engineers or not
     #----------------------------------------------------------------------------------------------------------------------
@@ -141,7 +148,6 @@ class Model():
 
     #----------------------------------------------------------------------------------------------------------------------   
     def __readWithstandFile(self, eng):
-        #Next we will read the withstand model file and process it
         self.__withstandFilePath = os.path.join(self.__progInfo[0], eng, '%T.WTHSTND')
         withstandFile = open(self.__withstandFilePath, 'r')
         self.__withstandFile = withstandFile.read().split('\n')
@@ -214,16 +220,18 @@ class Model():
     # Reads through WTHSTND file and extracts the curves as required
     #----------------------------------------------------------------------------------------------------------------------------------------
     def __extractWithstandCurves(self):
-        self.__fullSpeedStallCurrent = [] 
-        self.__fullSpeedStallTime = [] 
-        self.__stallColdCurrent = []
-        self.__stallColdTime = []
-        self.__stallHotCurrent = []
-        self.__stallHotTime = []
-        self.__startOnePuCurrent = []
-        self.__startOnePuTime = []
-        self.__startScalerPuCurrent = []
-        self.__startScalerPuTime = []
+        #Start each list with 1 in the zeroth position becase the smoothening function later on will think the first element is not part of the
+        #Useful data for the plot
+        self.__overloadCurrent = [1] 
+        self.__overloadTime = [1] 
+        self.__stallColdCurrent = [1]
+        self.__stallColdTime = [1]
+        self.__stallHotCurrent = [1]
+        self.__stallHotTime = [1]
+        self.__startOnePuCurrent = [1]
+        self.__startOnePuTime = [1]
+        self.__startScaledCurrent = [1]
+        self.__startScaledTime = [1]
 
         for lineNumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile)):
             if self.__withstandFile[lineNumber] != "":
@@ -231,8 +239,8 @@ class Model():
                 if lineNumber >= self.__withstandFileIndexes[0] and lineNumber < self.__withstandFileIndexes[1]:
                     current = float(self.__withstandFile[lineNumber][0:10])
                     time = float(self.__withstandFile[lineNumber][12:20])
-                    self.__fullSpeedStallCurrent.append(current)
-                    self.__fullSpeedStallTime.append(time)
+                    self.__overloadCurrent.append(current)
+                    self.__overloadTime.append(time)
 
                 if len(self.__withstandFileIndexes) == 4:   #THIS WILL BECOME ACTIVE IF THE USER IS ALSO TRYING TO PLOT THE STARTING CURVES
                     #This part will read the hot and cold stall times
@@ -248,15 +256,15 @@ class Model():
                     elif lineNumber >= self.__withstandFileIndexes[3] + 1 and lineNumber <= len(self.__withstandFile):
                         current = float(self.__withstandFile[lineNumber][0:5])
                         time = float(self.__withstandFile[lineNumber][6:]) 
-                        self.__startScalerPuCurrent.append(current)
-                        self.__startScalerPuTime.append(time)
+                        self.__startScaledCurrent.append(current)
+                        self.__startScaledTime.append(time)
                 elif len(self.__withstandFileIndexes) == 2:     #THIS WILL BECOME ACTIVE IF THE USER DOES NOT WANT TO PRINT STARTING CURVES
                     if lineNumber >= self.__withstandFileIndexes[1] + 1 and lineNumber <= len(self.__withstandFile):
                         self.__readStallTimes(lineNumber)
                         self.__startOnePuCurrent.append(0)
                         self.__startOnePuTime.append(0)
-                        self.__startScalerPuCurrent.append(0)
-                        self.__startScalerPuTime.append(0)
+                        self.__startScaledCurrent.append(0)
+                        self.__startScaledTime.append(0)
     
     #----------------------------------------------------------------------------------------------------------------------------------------
     # Helper function for reading stall times during the process of extracting withstand curves
@@ -274,9 +282,7 @@ class Model():
     #----------------------------------------------------------------------------------------------------------------------
     #Generates all the required CSV files
     #----------------------------------------------------------------------------------------------------------------------
-    def __generateCsvFiles(self, eng):
-        
-        self.__createFilenames(eng)     #Creates all the file names that will be used for saving the csv files
+    def __generateTorqueCurrentSpeedFiles(self):
         
         if len(self.__curves) == 1:     #This is for when we only have the 100% volts point
             self.__addZeroes()          #Fill the rest of the positions with zeroes
@@ -297,14 +303,20 @@ class Model():
         self.__createCSV(self.__curves[2].speed, self.__curves[2].torque, self.__speedTorque3Path)   #Speed vs Torque at second scaler
         self.__createCSV(self.__curves[2].speed, self.__curves[2].current, self.__speedCurrent3Path)   #Speed vs Current at second scaler
 
-        self.__createCSV(self.__loadCurve[0], self.__loadCurve[1], self.__loadPath)
+        self.__createCSV(self.__loadCurve[0], self.__loadCurve[1], self.__loadPath)     #Create Load Curve file
 
-        #Save the Full Speed Hot Stall Time Curve
-        #self.__createCSV(self.__fullSpeedStallCurrent, self.__fullSpeedStallTime, self.__fullSpeedHotStallPath)
+    def __generateWithstandFiles(self):
+        #Save the Full Speed Hot Curve
+        self.__createCSV(self.__overloadCurrent, self.__overloadTime, self.__fullSpeedHotStallPath)
         #Save the Cold Stall Time Curve
-        #self.__createCSV(self.__stallCurrent, self.__coldStallTime, self.__coldStallTimePath)
+        self.__createCSV(self.__stallColdCurrent, self.__stallColdTime, self.__coldStallTimePath)
         #Save the Hot Stall Time Curve
-        #self.__createCSV(self.__stallCurrent, self.__hotStallTime, self.__hotStallTimePath)
+        self.__createCSV(self.__stallHotCurrent, self.__stallHotTime, self.__hotStallTimePath)
+        #Save the 1 pu starting curve
+        specialCurve = True
+        self.__createCSV(self.__startOnePuCurrent, self.__startOnePuTime, self.__startOnePuPath, specialCurve)
+        #Save the scaled starting curve
+        self.__createCSV(self.__startScaledCurrent, self.__startScaledTime, self.__startScaledPath, specialCurve)
 
     #----------------------------------------------------------------------------------------------------------------------
     #Creates a curve with zeroes. This is used if the user choose to ommit some of the voltage scalers: nvolt = 1 or nvolt = 2
@@ -335,18 +347,20 @@ class Model():
         
         self.__loadPath = 'slip_vs_load_' + eng + ext
 
-        self.__fullSpeedHotStallPath = 'full_speed_hot_stall_time_'+ eng + ext
-        self.__hotStallTimePath = 'hot_stall_time_' + eng + ext
-        self.__coldStallTimePath = 'cold_stall_time_' + eng + ext 
+        self.__fullSpeedHotStallPath = 'overload_'+ eng + ext
+        self.__hotStallTimePath = 'hot_stall_' + eng + ext
+        self.__coldStallTimePath = 'cold_stall_' + eng + ext
+        self.__startOnePuPath = 'start_one_pu_' + eng + ext
+        self.__startScaledPath = 'start_scaled_' + eng + ext 
 
     #----------------------------------------------------------------------------------------------------------------------
-    def __createCSV(self, xValues, yValues, fileName):
+    def __createCSV(self, xValues, yValues, fileName, special = False):
         #speedTorquePath = os.path.join(resourcesDirectory, fileNames[0])
         #speedCurrentPath = os.path.join(resourcesDirectory, fileNames[1])
         
         filePath = os.path.join(self.__outputsBasePath, fileName)
         #First convert the lists of x and y values into numpy arrays
-        smoothCurve = self.__smoothenCurve(xValues,yValues)
+        smoothCurve = self.__smoothenCurve(xValues,yValues, special)
         xList = smoothCurve[0]
         yList = smoothCurve[1]
 
@@ -356,7 +370,9 @@ class Model():
         
         file.close()
 
-    def __smoothenCurve(self, xValues, yValues):
+    #Applies a cubic spline interpolation method to smoothen the graphs
+    #Take a special argument. If True, then we are doing the start time curve from the withstand and we need to treat it differently
+    def __smoothenCurve(self, xValues, yValues, special = False):
         xList = []
         yList = []
         load = 'Load'
@@ -373,9 +389,27 @@ class Model():
             stiction = yValues[1]
             yValues[1] = 0
             title = load
-    
-        x = np.flip(np.array(xValues[1:]))  
-        y = np.flip(np.array(yValues[1:]))
+
+        #This specia case was created to cater for the starting curve on the withstand model
+        xSpecial = 0
+        ySpecial = 0
+        if special == False:
+            x = np.flip(np.array(xValues[1:]))  
+            y = np.flip(np.array(yValues[1:]))
+        else:
+            xSpecial = xValues[1]
+            ySpecial = yValues[1]
+            x = np.flip(np.array(xValues[2:]))  
+            y = np.flip(np.array(yValues[2:]))
+            maxSplinePoints = maxSplinePoints - 1
+
+        #First check if the x values are increasing as required to smoothen the curve. 
+        #If they are not increasing, the sort them so that they are increasing.
+        if (np.diff(x) > 0).all():  #Checks the difference between all the successive elements in the array. If the difference is positve, the array is increasing
+            pass
+        else:                       #If the array is not increasing as required, then flip it so that it can be increasing.    
+            x = np.flip(x)
+            y = np.flip(y)
 
         #Here is where the interpolation actually happens.
         #Do it for max elements - 1 to reserve space for the voltage scaling value for curves that use it otherwise the first 
@@ -387,6 +421,11 @@ class Model():
         #Return the data back to lists and then add back the first element which could be the voltage scaling in some instances.
         xList = X_.tolist()
         yList = Y_.tolist()
+
+        if special == True:
+            xList.insert(0, xSpecial)
+            yList.insert(0, ySpecial)
+
         xList.insert(0, title)
         yList.insert(0, title)
         if str(xValues[0]) == load:
