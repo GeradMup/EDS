@@ -170,6 +170,8 @@ class Model():
                 elif line[0:21] == 'Current pu  Time Secs':
                     self.__withstandFileIndexes.append(index + 1)   #Determines the row number at which the starting curves start.
                     startingCurvesReached = True
+                elif line[0:34] == '       Quoted locked rotor current':
+                    self.__withstandStartingCurrentIndex = index
             index = index + 1
 
     #----------------------------------------------------------------------------------------------------------------------------------------
@@ -265,7 +267,24 @@ class Model():
                         self.__startOnePuTime.append(0)
                         self.__startScaledCurrent.append(0)
                         self.__startScaledTime.append(0)
-    
+        #Perform extrapolation to determine the locked rotor point in the starting curves and also determine the volt scaling being used
+        if len(self.__withstandFileIndexes) == 4:    
+            startingCurrent = self.__withstandFile[self.__withstandStartingCurrentIndex][34:]
+            startingCurrent = startingCurrent[:len(startingCurrent) - 2]
+            self.__startOnePuCurrent.append(float(startingCurrent))
+            self.__startOnePuTime.append(0.1)
+            
+            startPoint = self.__startingWithstandCurrent(self.__startScaledCurrent, self.__startScaledTime)
+            self.__startScaledCurrent.append(startPoint[0])
+            self.__startScaledTime.append(startPoint[1])
+
+            point_1 = self.__withstandFile[self.__withstandFileIndexes[2]][:6]
+            point_2 = self.__withstandFile[self.__withstandFileIndexes[3]+1][:6]
+            scaling = float(point_1) / float(point_2)
+
+            self.__startScaledCurrent[0] = scaling
+            self.__startScaledTime[0] = scaling
+
     #----------------------------------------------------------------------------------------------------------------------------------------
     # Helper function for reading stall times during the process of extracting withstand curves
     #----------------------------------------------------------------------------------------------------------------------------------------    
@@ -279,6 +298,24 @@ class Model():
         self.__stallHotTime.append(hotTime)
         self.__stallColdTime.append(coldTime)
 
+    #-----------------------------------------------------------------------------------------------------------------------------------------
+    # The starting curves in the withstand model do not show the starting current point.
+    # We will thus have to do some linear extrapolation to determine the value
+    #-----------------------------------------------------------------------------------------------------------------------------------------
+    def __startingWithstandCurrent(self, x_values, y_values):
+        x_1 = x_values[len(x_values) - 1]
+        x_2 = x_values[len(x_values) - 2]
+
+        y_1 = y_values[len(y_values) - 1]
+        y_2 = y_values[len(y_values) - 2]
+
+        m = (y_1 - y_2) / (x_1 - x_2)
+        c = y_1 - (m * x_1)
+        startingTime = 0.1
+        startingCurrent = (startingTime-c)/m
+        
+
+        return [startingCurrent, startingTime]
     #----------------------------------------------------------------------------------------------------------------------
     #Generates all the required CSV files
     #----------------------------------------------------------------------------------------------------------------------
