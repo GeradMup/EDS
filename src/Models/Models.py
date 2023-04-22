@@ -225,21 +225,31 @@ class Model():
         self.__startScalerPuCurrent = []
         self.__startScalerPuTime = []
 
-        fullLoadHotStart = self.__withstandFileIndexes[0]
-        fullLoadHotEnd = self.__withstandFileIndexes[1]
-        stallStart = self.__withstandFileIndexes[1] + 1
-        stallEnd = self.__withstandFileIndexes[1]
-
         for lineNumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile) - 1):
-            if lineNumber >= fullLoadHotStart and lineNumber < fullLoadHotEnd:
+            if lineNumber >= self.__withstandFileIndexes[0] and lineNumber < self.__withstandFileIndexes[1]:
                 current = float(self.__withstandFile[lineNumber][0:10])
                 time = float(self.__withstandFile[lineNumber][12:20])
                 self.__fullSpeedStallCurrent.append(current)
                 self.__fullSpeedStallTime.append(time)
 
-        print(self.__fullSpeedStallCurrent)
-        print(self.__fullSpeedStallTime)
-        
+            if len(self.__withstandFileIndexes) == 4:
+                if lineNumber >= self.__withstandFileIndexes[1] + 1 and lineNumber < self.__withstandFileIndexes[2] - 2:
+                    current = float(self.__withstandFile[lineNumber][0:6])
+                    hotTime = float(self.__withstandFile[lineNumber][7:14])
+                    coldTime = float(self.__withstandFile[lineNumber][15:21])
+                    
+                    self.__stallHotCurrent.append(current)
+                    self.__stallColdCurrent.append(current)
+                    self.__stallHotTime.append(hotTime)
+                    self.__stallColdTime.append(coldTime)
+            
+                
+
+        print(self.__stallHotCurrent)
+        print(self.__stallColdCurrent)
+        print(self.__stallHotTime)
+        print(self.__stallColdTime)    
+
         '''
         for linenumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile)-1):
             #The first if statement will read Full Speed Hot Curve
