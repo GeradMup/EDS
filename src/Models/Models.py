@@ -154,7 +154,7 @@ class Model():
         for line in self.__withstandFile:
             if line != "":
                 if startingCurvesReached == True and startingScalerReached == False:                   #Determine the position at which the first scaler for the starting curve is        
-                    if float(self.__withstandFile[index + 1][0:6]) > float(self.__withstandFile[index][0:6]):
+                    if float(self.__withstandFile[index + 1][0:6]) < float(self.__withstandFile[index][0:6]):
                         startingScalerReached = True
                         self.__withstandFileIndexes.append(index)     
                 if line[0:28] == 'Current pu     Secs     Mins':    #Determines the row number at which the stall time from hot table starts.          
@@ -225,52 +225,52 @@ class Model():
         self.__startScalerPuCurrent = []
         self.__startScalerPuTime = []
 
-        for lineNumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile) - 1):
-            if lineNumber >= self.__withstandFileIndexes[0] and lineNumber < self.__withstandFileIndexes[1]:
-                current = float(self.__withstandFile[lineNumber][0:10])
-                time = float(self.__withstandFile[lineNumber][12:20])
-                self.__fullSpeedStallCurrent.append(current)
-                self.__fullSpeedStallTime.append(time)
+        for lineNumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile)):
+            if self.__withstandFile[lineNumber] != "":
+                #The first if statement will read the full speed hot curve
+                if lineNumber >= self.__withstandFileIndexes[0] and lineNumber < self.__withstandFileIndexes[1]:
+                    current = float(self.__withstandFile[lineNumber][0:10])
+                    time = float(self.__withstandFile[lineNumber][12:20])
+                    self.__fullSpeedStallCurrent.append(current)
+                    self.__fullSpeedStallTime.append(time)
 
-            if len(self.__withstandFileIndexes) == 4:
-                if lineNumber >= self.__withstandFileIndexes[1] + 1 and lineNumber < self.__withstandFileIndexes[2] - 2:
-                    current = float(self.__withstandFile[lineNumber][0:6])
-                    hotTime = float(self.__withstandFile[lineNumber][7:14])
-                    coldTime = float(self.__withstandFile[lineNumber][15:21])
+                if len(self.__withstandFileIndexes) == 4:   #THIS WILL BECOME ACTIVE IF THE USER IS ALSO TRYING TO PLOT THE STARTING CURVES
+                    #This part will read the hot and cold stall times
+                    if lineNumber >= self.__withstandFileIndexes[1] + 1 and lineNumber < self.__withstandFileIndexes[2] - 2:
+                        self.__readStallTimes(lineNumber)
+                    #This part will read the starting curves
+                    elif lineNumber >= self.__withstandFileIndexes[2] and lineNumber < self.__withstandFileIndexes[3] + 1:
+                        current = float(self.__withstandFile[lineNumber][0:5])
+                        time = float(self.__withstandFile[lineNumber][6:]) 
+                        self.__startOnePuCurrent.append(current)
+                        self.__startOnePuTime.append(time)
                     
-                    self.__stallHotCurrent.append(current)
-                    self.__stallColdCurrent.append(current)
-                    self.__stallHotTime.append(hotTime)
-                    self.__stallColdTime.append(coldTime)
-            
-                
+                    elif lineNumber >= self.__withstandFileIndexes[3] + 1 and lineNumber <= len(self.__withstandFile):
+                        current = float(self.__withstandFile[lineNumber][0:5])
+                        time = float(self.__withstandFile[lineNumber][6:]) 
+                        self.__startScalerPuCurrent.append(current)
+                        self.__startScalerPuTime.append(time)
+                elif len(self.__withstandFileIndexes) == 2:     #THIS WILL BECOME ACTIVE IF THE USER DOES NOT WANT TO PRINT STARTING CURVES
+                    if lineNumber >= self.__withstandFileIndexes[1] + 1 and lineNumber <= len(self.__withstandFile):
+                        self.__readStallTimes(lineNumber)
+                        self.__startOnePuCurrent.append(0)
+                        self.__startOnePuTime.append(0)
+                        self.__startScalerPuCurrent.append(0)
+                        self.__startScalerPuTime.append(0)
+    
+    #----------------------------------------------------------------------------------------------------------------------------------------
+    # Helper function for reading stall times during the process of extracting withstand curves
+    #----------------------------------------------------------------------------------------------------------------------------------------    
+    def __readStallTimes(self, lineNumber):
+        current = float(self.__withstandFile[lineNumber][0:6])
+        hotTime = float(self.__withstandFile[lineNumber][7:14])
+        coldTime = float(self.__withstandFile[lineNumber][15:21])
+                    
+        self.__stallHotCurrent.append(current)
+        self.__stallColdCurrent.append(current)
+        self.__stallHotTime.append(hotTime)
+        self.__stallColdTime.append(coldTime)
 
-        print(self.__stallHotCurrent)
-        print(self.__stallColdCurrent)
-        print(self.__stallHotTime)
-        print(self.__stallColdTime)    
-
-        '''
-        for linenumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile)-1):
-            #The first if statement will read Full Speed Hot Curve
-            if linenumber >= self.__withstandFileIndexes[0] and linenumber < self.__withstandFileIndexes[1]:
-                current = self.__withstandFile[linenumber][3:9]
-                time = self.__withstandFile[linenumber][13:20]
-            
-                self.__fullSpeedStallCurrent.append(float(current))
-                self.__fullSpeedStallTime.append(float(time))
-            else:   
-                #The else section reads the Hot and Cold Stall time curves 
-                if linenumber > self.__withstandFileIndexes[1]:
-                    current = self.__withstandFile[linenumber][0:6]
-                    hotTime = self.__withstandFile[linenumber][8:14]
-                    coldTime = self.__withstandFile[linenumber][16:21]
-
-                    self.__stallCurrent.append(float(current))
-                    self.__hotStallTime.append(float(hotTime))
-                    self.__coldStallTime.append(float(coldTime))
-                    #print(f'{current} {hotTime} {coldTime}')
-            '''
     #----------------------------------------------------------------------------------------------------------------------
     #Generates all the required CSV files
     #----------------------------------------------------------------------------------------------------------------------
