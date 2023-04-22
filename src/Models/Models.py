@@ -30,9 +30,6 @@ class Model():
         self.__engineers = []
         self.__fullSpeedStallCurrent = []
         self.__fullSpeedStallTime = []
-        self.__coldStallTime = []
-        self.__hotStallTime = []
-        self.__stallCurrent = []
         self.__noEngineerErrorMessage = "Please selected an Engineer!"
         self.__successfulExportMessage = "Curves have been Exported!"
         self.__failedToImportEdsErrorMessage = "Failed to import EDS Files!"
@@ -70,17 +67,17 @@ class Model():
         
         if currentTorqueSpeed == 0 and withstand == 0:
             return [False, self.__noCurveSelectedErrorMessage]
-        
+        '''
         importFolder = os.path.join(self.__progInfo[0], eng)
         importEdsFiles = ftp.downloadEdsFiles(eng, importFolder, currentTorqueSpeed, withstand)
 
         if importEdsFiles[0] == False:
             return [False, self.__failedToImportEdsErrorMessage]
-        
+        '''
         
         #Read the Main File with all the design parameters
         self.__readEDSFile(eng)
-        #self.__readWithstandFile(eng)
+        self.__readWithstandFile(eng)
 
         curve1LineNumbers = []
         curve2LineNumbers = []
@@ -101,7 +98,7 @@ class Model():
         self.__extractEDSCurves(curve1LineNumbers)
         self.__extractEDSCurves(curve2LineNumbers)
         self.__extractEDSCurves(curve3LineNumbers)
-        #self.__extractWithstandCurves()
+        self.__extractWithstandCurves()
 
         self.__generateCsvFiles(eng)
 
@@ -125,6 +122,7 @@ class Model():
         edsfile.close()
 
         index = 0
+        self.__edsFileIndexes.clear()
         for line in self.__edsfile:
             if line != "":
                 if line[1:3] == '1.':                           #Determines the row number at which the run up table starts in the main file.          
@@ -150,12 +148,22 @@ class Model():
         withstandFile.close()
 
         index = 0
+        self.__withstandFileIndexes.clear()
+        startingCurvesReached = False
+        startingScalerReached = False
         for line in self.__withstandFile:
             if line != "":
-                if line[0:28] == 'Current pu     Secs     Mins':  #Determines the row number at which the stall time from hot table starts.          
+                if startingCurvesReached == True and startingScalerReached == False:                   #Determine the position at which the first scaler for the starting curve is        
+                    if float(self.__withstandFile[index + 1][0:6]) > float(self.__withstandFile[index][0:6]):
+                        startingScalerReached = True
+                        self.__withstandFileIndexes.append(index)     
+                if line[0:28] == 'Current pu     Secs     Mins':    #Determines the row number at which the stall time from hot table starts.          
                     self.__withstandFileIndexes.append(index+1)
                 elif line[0:18] == 'Stall Hot and Cold':
-                    self.__withstandFileIndexes.append(index)      #Determines the row number at which the stall time from hot table ends.
+                    self.__withstandFileIndexes.append(index)       #Determines the row number at which the stall time from hot and cold table ends.
+                elif line[0:21] == 'Current pu  Time Secs':
+                    self.__withstandFileIndexes.append(index + 1)   #Determines the row number at which the starting curves start.
+                    startingCurvesReached = True
             index = index + 1
 
     #----------------------------------------------------------------------------------------------------------------------------------------
@@ -206,9 +214,33 @@ class Model():
     # Reads through WTHSTND file and extracts the curves as required
     #----------------------------------------------------------------------------------------------------------------------------------------
     def __extractWithstandCurves(self):
-        self.__fullSpeedStallCurrent = []
-        self.__fullSpeedStallTime = []
+        self.__fullSpeedStallCurrent = [] 
+        self.__fullSpeedStallTime = [] 
+        self.__stallColdCurrent = []
+        self.__stallColdTime = []
+        self.__stallHotCurrent = []
+        self.__stallHotTime = []
+        self.__startOnePuCurrent = []
+        self.__startOnePuTime = []
+        self.__startScalerPuCurrent = []
+        self.__startScalerPuTime = []
 
+        fullLoadHotStart = self.__withstandFileIndexes[0]
+        fullLoadHotEnd = self.__withstandFileIndexes[1]
+        stallStart = self.__withstandFileIndexes[1] + 1
+        stallEnd = self.__withstandFileIndexes[1]
+
+        for lineNumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile) - 1):
+            if lineNumber >= fullLoadHotStart and lineNumber < fullLoadHotEnd:
+                current = float(self.__withstandFile[lineNumber][0:10])
+                time = float(self.__withstandFile[lineNumber][12:20])
+                self.__fullSpeedStallCurrent.append(current)
+                self.__fullSpeedStallTime.append(time)
+
+        print(self.__fullSpeedStallCurrent)
+        print(self.__fullSpeedStallTime)
+        
+        '''
         for linenumber in range(self.__withstandFileIndexes[0], len(self.__withstandFile)-1):
             #The first if statement will read Full Speed Hot Curve
             if linenumber >= self.__withstandFileIndexes[0] and linenumber < self.__withstandFileIndexes[1]:
@@ -228,7 +260,7 @@ class Model():
                     self.__hotStallTime.append(float(hotTime))
                     self.__coldStallTime.append(float(coldTime))
                     #print(f'{current} {hotTime} {coldTime}')
-        
+            '''
     #----------------------------------------------------------------------------------------------------------------------
     #Generates all the required CSV files
     #----------------------------------------------------------------------------------------------------------------------
