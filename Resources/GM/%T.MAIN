@@ -1,8 +1,8 @@
-MAIN      EDM2374 version 34.03  PRD   KG    21 APR 2023 13:52  PAGE  1     .
+MAIN      EDM2374 version 34.03  PRD   KG    24 APR 2023 11:08  PAGE  1     .
 
 50966/G1 -UL500/160 1604KW 6P 6600V CACW
 WARNING Unsaturated POT 1.98 pu is below specified 2 pu.
-MAIN      EDM2374 version 34.03  PRD   KG    21 APR 2023 13:52  PAGE  2     .
+MAIN      EDM2374 version 34.03  PRD   KG    24 APR 2023 11:08  PAGE  2     .
 
 50966/G1 -UL500/160 1604KW 6P 6600V CACW
 Zuthari
@@ -64,7 +64,7 @@ BINDS  Group binding             0.   mm
 COR    Corona shield             0.44 mm
 TISW   Width Intersection ins.   0.   mm    NWLINS No. liners in width   0
 TISD   Depth Intersection ins.   0.   mm    NDLINS No. liners in depth   0
-MAIN      EDM2374 version 34.03  PRD   KG    21 APR 2023 13:52  PAGE  3     .
+MAIN      EDM2374 version 34.03  PRD   KG    24 APR 2023 11:08  PAGE  3     .
 
 50966/G1 -UL500/160 1604KW 6P 6600V CACW
 
@@ -125,7 +125,7 @@ K Circ  1.    1.    1.046               St Sl.  2.29    R Sl   0.988
 Approx Rotor WR2  95.1 kgm2             KL1     0.812   KL2    1
 Approx Brg Dia 160  l/Min/Brg 4.12      St Ew   0.799   R Ew   0.222
 Approx Rotor mass 2250 kg 
-MAIN      EDM2374 version 34.03  PRD   KG    21 APR 2023 13:52  PAGE  4     .
+MAIN      EDM2374 version 34.03  PRD   KG    24 APR 2023 11:08  PAGE  4     .
 
 50966/G1 -UL500/160 1604KW 6P 6600V CACW
 
@@ -187,7 +187,7 @@ Minimum accelerating torque 0.512  at slip= 1
 Rotor bar          33.5 K
 Rotor SC ring       5.8 K
 Stator Winding      5.4 K         7.5 K               127.5 C
-MAIN      EDM2374 version 34.03  PRD   KG    21 APR 2023 13:52  PAGE  5     .
+MAIN      EDM2374 version 34.03  PRD   KG    24 APR 2023 11:08  PAGE  5     .
 
 50966/G1 -UL500/160 1604KW 6P 6600V CACW
 
@@ -195,9 +195,9 @@ Stator Winding      5.4 K         7.5 K               127.5 C
 
 LOCKED ROTOR CURRENTS (referred to rated volts)
                              pu    Amps/Ph   kVA/kW    
-Unsaturated (AEI Method)   3.835    643.4     4.59
+Unsaturated (AEI Method)   3.408    571.9     4.08
 
-DOL at 0.9pu volts         4.817    808.2     5.76
+DOL at 0.8pu volts         4.11     689.6     4.91
 
 
 
@@ -210,48 +210,48 @@ DOL at 0.9pu volts         4.817    808.2     5.76
 0 kW loss per torque disc at S=1.0  Volts=1.0  Total kW 0 = 0 pu
 REACTANCE and SATURATION OF COMPONENTS
 COMPONENT               STATOR                ROTOR        Bar Amps S=1
-                 UNSAT X    SAT.I       UNSAT X    SAT.I     9901 rms
+                 UNSAT X    SAT.I       UNSAT X    SAT.I     8443 rms
 Zigzag           0.02396    1.669       0.03617    1.669
 Bridge           0.01964    2.674       0.02825    3.53    Bar AC/DC S=1
 Bridge to cu     0.01224                0.                     4.13
 Wound Slot       0.08104
 Endwinding       0.03418                0.01055
-STARTING CHARACTERISTICS AT VOLTS= 0.9            2H (KWSec/KW)= 3.919
-EXTERNAL REACTANCE (PU)= 0   Volts across motor=0.9 pu
+STARTING CHARACTERISTICS AT VOLTS= 0.8            2H (KWSec/KW)= 3.919
+EXTERNAL REACTANCE (PU)= 0   Volts across motor=0.8 pu
 0 pu Torque from torque discs at S=1.0  included below.
  SLIP   TORQUE  STA I   P.F.   TIME   Load   X1     X2     R1      R2
- 1.      0.503  4.817  0.125    0.    0.15   0.129  0.057 0.0052 0.0187
- 0.9     0.524  4.781  0.129    0.9   0.005  0.129  0.058 0.0052 0.0178
- 0.8     0.55   4.734  0.135    1.65  0.02   0.13   0.059 0.0052 0.017 
- 0.7     0.58   4.68   0.142    2.38  0.045  0.13   0.061 0.0052 0.016 
- 0.6     0.614  4.613  0.151    3.12  0.08   0.131  0.063 0.0052 0.015 
- 0.5     0.653  4.529  0.16     3.86  0.125  0.132  0.065 0.0052 0.0138
- 0.4     0.696  4.419  0.172    4.61  0.18   0.133  0.068 0.0052 0.0124
- 0.3     0.746  4.277  0.187    5.38  0.245  0.135  0.073 0.0053 0.0107
- 0.2     0.821  4.094  0.211    6.16  0.32   0.137  0.079 0.0053 0.0086
- 0.1     1.082  3.821  0.286    6.82  0.405  0.14   0.087 0.0053 0.0065
- 0.09    1.142  3.773  0.304    6.88  0.414  0.141  0.087 0.0053 0.0063
- 0.08    1.214  3.713  0.326    6.93  0.423  0.142  0.088 0.0053 0.0062
- 0.07    1.3    3.637  0.354    6.98  0.432  0.143  0.089 0.0053 0.0061
- 0.06    1.402  3.535  0.39     7.02  0.442  0.144  0.09  0.0053 0.0059
- 0.05    1.517  3.39   0.436    7.06  0.451  0.146  0.092 0.0053 0.0058
- 0.04    1.636  3.176  0.498    7.1   0.461  0.149  0.094 0.0053 0.0057
- 0.03    1.735  2.855  0.582    7.13  0.47   0.153  0.097 0.0053 0.0057
- 0.02    1.719  2.338  0.698    7.16  0.48   0.158  0.1   0.0053 0.0056
- 0.01    1.289  1.451  0.837    7.2   0.49   0.163  0.103 0.0053 0.0056
- 0.005   0.749  0.81   0.87     7.24  0.495  0.163  0.103 0.0053 0.0056
- 0.00321 0.497  0.56   0.836    7.29  0.497  0.163  0.103 0.0053 0.0056
+ 1.      0.366  4.11   0.12     0.    0.15   0.134  0.06  0.0052 0.0187
+ 0.9     0.381  4.08   0.124    1.33  0.005  0.135  0.061 0.0052 0.0178
+ 0.8     0.4    4.041  0.13     2.36  0.02   0.135  0.062 0.0052 0.017 
+ 0.7     0.422  3.995  0.137    3.4   0.045  0.136  0.063 0.0052 0.016 
+ 0.6     0.447  3.939  0.144    4.45  0.08   0.137  0.065 0.0052 0.015 
+ 0.5     0.476  3.867  0.154    5.54  0.125  0.138  0.068 0.0052 0.0138
+ 0.4     0.508  3.775  0.165    6.7   0.18   0.139  0.071 0.0053 0.0124
+ 0.3     0.544  3.655  0.18     7.95  0.245  0.14   0.076 0.0053 0.0107
+ 0.2     0.6    3.501  0.203    9.3   0.32   0.143  0.083 0.0053 0.0086
+ 0.1     0.796  3.277  0.276   10.47  0.405  0.146  0.09  0.0053 0.0065
+ 0.09    0.842  3.237  0.294   10.56  0.414  0.146  0.091 0.0053 0.0064
+ 0.08    0.899  3.192  0.316   10.65  0.423  0.147  0.092 0.0053 0.0062
+ 0.07    0.968  3.135  0.344   10.73  0.432  0.148  0.092 0.0053 0.0061
+ 0.06    1.052  3.058  0.38    10.8   0.442  0.149  0.093 0.0053 0.006 
+ 0.05    1.15   2.947  0.428   10.86  0.451  0.15   0.095 0.0053 0.0058
+ 0.04    1.257  2.779  0.492   10.91  0.461  0.152  0.096 0.0053 0.0058
+ 0.03    1.347  2.511  0.578   10.96  0.47   0.155  0.098 0.0053 0.0057
+ 0.02    1.344  2.063  0.696   11.    0.48   0.16   0.102 0.0053 0.0056
+ 0.01    1.015  1.285  0.838   11.06  0.49   0.163  0.103 0.0053 0.0056
+ 0.005   0.589  0.717  0.87    11.12  0.495  0.163  0.103 0.0053 0.0056
+ 0.00413 0.496  0.611  0.861   11.19  0.496  0.163  0.103 0.0053 0.0056
 
-Pull-out torque (max. value from table above) :  1.735
-Pull-up torque (min. value from above table above) :  0.503
-Minimum accelerating torque 0.353  at slip= 1
+Pull-out torque (max. value from table above) :  1.347
+Pull-up torque (min. value from above table above) :  0.366
+Minimum accelerating torque 0.216  at slip= 1
 
 TEMPERATURE RISES
 (Adiabatic from 20C)          (approx from hot)  approx total temp C
-Rotor bar          35.1 K
-Rotor SC ring       6.1 K
-Stator Winding      5.8 K         8.  K               128.  C
-MAIN      EDM2374 version 34.03  PRD   KG    21 APR 2023 13:52  PAGE  6     .
+Rotor bar          38.2 K
+Rotor SC ring       6.8 K
+Stator Winding      6.4 K         8.9 K               128.9 C
+MAIN      EDM2374 version 34.03  PRD   KG    24 APR 2023 11:08  PAGE  6     .
 
 50966/G1 -UL500/160 1604KW 6P 6600V CACW
 
@@ -280,7 +280,7 @@ Compressive Force between coils N     219.8         6703.5
 Downward Force (into slot)      N     293.1         6703.5
 
 Shear stress in wedges N/mm2          0.             0.09  (limit is 160)
-MAIN      EDM2374 version 34.03  PRD   KG    21 APR 2023 13:52  PAGE  7     .
+MAIN      EDM2374 version 34.03  PRD   KG    24 APR 2023 11:08  PAGE  7     .
 
 50966/G1 -UL500/160 1604KW 6P 6600V CACW
 

@@ -67,13 +67,13 @@ class Model():
         
         if edsMain == 0 and withstand == 0:
             return [False, self.__noCurveSelectedErrorMessage]
-        '''
+        
         importFolder = os.path.join(self.__progInfo[0], eng)
         importEdsFiles = ftp.downloadEdsFiles(eng, importFolder, edsMain, withstand)
 
         if importEdsFiles[0] == False:
             return [False, self.__failedToImportEdsErrorMessage]
-        '''
+        
         #User is trying to get the current and torque vs speed files from the eds
         if edsMain == 1:   
             self.__edsFiles(eng)
@@ -148,7 +148,7 @@ class Model():
 
     #----------------------------------------------------------------------------------------------------------------------   
     def __readWithstandFile(self, eng):
-        self.__withstandFilePath = os.path.join(self.__progInfo[0], eng, '%T2.WTHSTND')
+        self.__withstandFilePath = os.path.join(self.__progInfo[0], eng, '%T.WTHSTND')
         withstandFile = open(self.__withstandFilePath, 'r')
         self.__withstandFile = withstandFile.read().split('\n')
         withstandFile.close()
@@ -459,9 +459,12 @@ class Model():
         xList = X_.tolist()
         yList = Y_.tolist()
 
+        #The withstand curves really need special handling
         if special == True:
             xList.insert(0, xSpecial)
             yList.insert(0, ySpecial)
+            yList[len(yList) - 2] = yList[len(yList) - 1] 
+            
 
         xList.insert(0, title)
         yList.insert(0, title)

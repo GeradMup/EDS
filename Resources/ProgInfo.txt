@@ -1,2 +1,2 @@
-C:\Users\gerry\Documents\Work\ACTOM\EDS\Resources
-C:\Users\gerry\Documents\Work\ACTOM\EDS\Resources\Curves Outputs
+C:\Users\kgodyn\Documents\Programming\EDS\EDS CURVES\Resources
+C:\Users\kgodyn\Documents\Programming\EDS\EDS CURVES\Resources\Curves Outputs

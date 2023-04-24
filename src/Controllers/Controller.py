@@ -1,6 +1,7 @@
 import sys
 import os
 
+
 #First let's the establish the path to the views and the models folder
 controllersDirectory = os.path.dirname(__file__)
 viewsDirectory = os.path.join(controllersDirectory, '../Views')
@@ -11,6 +12,7 @@ sys.path.append(modelsDirectory)
 #Now import main models, main views and other sub classes
 import Views as views
 import Models as model
+import ErrorWindow as errorWin
 #from views import *
 #from Models import *
 
@@ -21,6 +23,7 @@ class Controller():
         self.__eventHandlers.append(self.__selectedEng)
         #TAKE OUT EVERYTHING TO DO WITH VIEWS BECAUSE WE ARE NOW CALLING THIS WHOLE PROGRAM FROM EXCEL VBA (LX22)
         self.__model = model.Model()
+        self.__errors = errorWin.ErrorWindow()
         #self.__views = views.Views(self.__eventHandlers, self.__model.getEngineers())
         
         #self.__window = self.__views.getWindow()
@@ -42,8 +45,10 @@ class Controller():
         #currentTorqueSpeed = self.__views.getCurrentTorqueSpeed()
         #withstand = self.__views.getWithstandTime()
         #curvesGenerated = self.__model.generateCurveFiles(self.__engineer, currentTorqueSpeed, withstand)
-
-        curvesGenerated = self.__model.generateCurveFiles(self.__engineer, self.__currentTorqueSpeed, self.__withstandTime)
+        try:
+            curvesGenerated = self.__model.generateCurveFiles(self.__engineer, self.__currentTorqueSpeed, self.__withstandTime)
+        except Exception as exc:
+            self.__errors.showException(exc)
         #nothing = input("Done")
 
         '''
