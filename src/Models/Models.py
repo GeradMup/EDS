@@ -59,7 +59,7 @@ class Model():
 
     #----------------------------------------------------------------------------------------------------------------------
     def generateCurveFiles(self, eng, edsMain, withstand):
-
+        
         self.__createFilenames(eng)     #Creates all the file names that will be used for saving the csv files
         #Return false if no engineer is selected
         if self.__engineerExists(eng) == False:
@@ -75,22 +75,32 @@ class Model():
             return [False, self.__failedToImportEdsErrorMessage]
         
         #User is trying to get the current and torque vs speed files from the eds
-        if edsMain == 1:   
-            self.__edsFiles(eng)
+        if edsMain == 1:
+            
+            self.__readEDSFile(eng)
+            self.__extractCurrentTorqueCurves()
+            
+            #After extracting the curves there should be indexes available
+            #to show where the speed vs torque and speed vs current information is
+            #If these indexes are empty, then the wrong file was ran
+            if len(self.__edsFileIndexes) == 0:
+                raise Exception('No datapoints found. Are you sure this is Cage Motor?')
+
+            
             self.__generateTorqueCurrentSpeedFiles()
 
         #User is tring to get the curves from the withstand module
         if withstand == 1:
+            
             self.__readWithstandFile(eng)
             self.__extractWithstandCurves()
+            
             self.__generateWithstandFiles()
 
         return [True, self.__successfulExportMessage]
     
     #HANDLES THE STEPS FOR EXTRACTNG CURVES FROM THE EDS FILE
-    def __edsFiles(self, eng):
-        self.__readEDSFile(eng)
-
+    def __extractCurrentTorqueCurves(self):
         curve1LineNumbers = []
         curve2LineNumbers = []
         curve3LineNumbers = []
@@ -115,10 +125,12 @@ class Model():
     # Checks if the selected Engineer is part of the list of engineers or not
     #----------------------------------------------------------------------------------------------------------------------
     def __engineerExists(self, eng):
-        if eng in self.__engineers:     
-            return True
-        else:
-            return False
+        for engineer in self.__engineers:
+            if eng in engineer:     
+                return True
+        
+
+        raise Exception('Engineer with initials {eng} does not exist!')
 
     #----------------------------------------------------------------------------------------------------------------------    
     def __readEDSFile(self, eng):
@@ -137,11 +149,13 @@ class Model():
                 elif line[0:8] == 'Pull-out':
                     self.__edsFileIndexes.append(index - 1)     #Determines the row number at which the run up table ends in the main file.
                 elif line[0:8] == 'kW/m2 AC':                   #Determines the row number where the full load torque can be found
-                    flt = line[39:]
+                    indexOfFLT = line.index('FLT')
+                    flt = line[indexOfFLT + 3:]
                     flt = flt[:len(flt)-2]
                     self.__fullLoadTorque = float(flt)
                 elif line[0:4] == 'WFAN':
-                    flc = line[61:]
+                    indexOfkW = line.index('kW')
+                    flc = line[indexOfkW + 2:]
                     flc = flc[:len(flc)-3]
                     self.__fullLoadCurrent = float(flc)
             index = index + 1

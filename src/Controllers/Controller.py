@@ -23,15 +23,15 @@ class Controller():
         self.__eventHandlers.append(self.__selectedEng)
         #TAKE OUT EVERYTHING TO DO WITH VIEWS BECAUSE WE ARE NOW CALLING THIS WHOLE PROGRAM FROM EXCEL VBA (LX22)
         self.__model = model.Model()
-        self.__errors = errorWin.ErrorWindow()
+        
         #self.__views = views.Views(self.__eventHandlers, self.__model.getEngineers())
         
         #self.__window = self.__views.getWindow()
 
         #Read system arguments to get the required details before running the rest of the script
-        self.__engineer = sys.argv[1]
-        self.__currentTorqueSpeed = int(sys.argv[2])
-        self.__withstandTime = int(sys.argv[3])
+        #self.__engineer = sys.argv[1]
+        #self.__currentTorqueSpeed = int(sys.argv[2])
+        #self.__withstandTime = int(sys.argv[3])
 
         #self.__engineer = 'GM'
         #self.__currentTorqueSpeed = 1
@@ -46,8 +46,10 @@ class Controller():
         #withstand = self.__views.getWithstandTime()
         #curvesGenerated = self.__model.generateCurveFiles(self.__engineer, currentTorqueSpeed, withstand)
         try:
-            curvesGenerated = self.__model.generateCurveFiles(self.__engineer, self.__currentTorqueSpeed, self.__withstandTime)
+            #curvesGenerated = self.__model.generateCurveFiles(self.__engineer, self.__currentTorqueSpeed, self.__withstandTime)
+            self.__model.generateCurveFiles('GM', 1, 1)
         except Exception as exc:
+            self.__errors = errorWin.ErrorWindow()
             self.__errors.showException(exc)
         #nothing = input("Done")
 
