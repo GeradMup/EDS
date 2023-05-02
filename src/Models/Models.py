@@ -4,10 +4,11 @@ from dataclasses import dataclass
 import FTP as ftp
 import numpy as np
 from scipy.interpolate import make_interp_spline
+from datetime import datetime
+import time
 
 modelsDirectory = os.path.dirname(__file__)
 resourcesDirectory = os.path.join(modelsDirectory, '../../Resources')
-edsFolder = 'C:/EDS PLOTS'
 pathToEDSFile = os.path.join(resourcesDirectory, '%T.MAIN')
 
 pathToEngineers = os.path.join(resourcesDirectory, 'Engineers.txt')
@@ -37,6 +38,7 @@ class Model():
         self.__outputsBasePath = ''
         self.__fullLoadTorque = 0
         self.__fullLoadCurrent = 0
+        self.__currentUser = ""
 
         self.__readResources()
     
@@ -56,6 +58,18 @@ class Model():
     #----------------------------------------------------------------------------------------------------------------------
     def getEngineers(self):
         return self.__engineers
+    
+    #----------------------------------------------------------------------------------------------------------------------
+    # Checks if the selected Engineer is part of the list of engineers or not
+    #----------------------------------------------------------------------------------------------------------------------
+    def __engineerExists(self, eng):
+        for engineer in self.__engineers:
+            if eng in engineer:
+                self.__currentUser = engineer     
+                return True
+        
+
+        raise Exception('Engineer with initials {eng} does not exist!')
 
     #----------------------------------------------------------------------------------------------------------------------
     def generateCurveFiles(self, eng, edsMain, withstand):
@@ -77,25 +91,24 @@ class Model():
         #User is trying to get the current and torque vs speed files from the eds
         if edsMain == 1:
             
-            self.__readEDSFile(eng)
+            self.__readEDSFile(eng)            
             self.__extractCurrentTorqueCurves()
-            
             #After extracting the curves there should be indexes available
             #to show where the speed vs torque and speed vs current information is
             #If these indexes are empty, then the wrong file was ran
             if len(self.__edsFileIndexes) == 0:
                 raise Exception('No datapoints found. Are you sure this is Cage Motor?')
 
-            
             self.__generateTorqueCurrentSpeedFiles()
+            self.__confirmCreationTime(self.__edsfile[0], 'EDS MAIN')
 
         #User is tring to get the curves from the withstand module
         if withstand == 1:
             
             self.__readWithstandFile(eng)
             self.__extractWithstandCurves()
-            
             self.__generateWithstandFiles()
+            self.__confirmCreationTime(self.__withstandFile[0], 'EDS WITHSTAND')
 
         return [True, self.__successfulExportMessage]
     
@@ -120,17 +133,6 @@ class Model():
         self.__extractEDSCurves(curve1LineNumbers)
         self.__extractEDSCurves(curve2LineNumbers)
         self.__extractEDSCurves(curve3LineNumbers)
-
-    #----------------------------------------------------------------------------------------------------------------------
-    # Checks if the selected Engineer is part of the list of engineers or not
-    #----------------------------------------------------------------------------------------------------------------------
-    def __engineerExists(self, eng):
-        for engineer in self.__engineers:
-            if eng in engineer:     
-                return True
-        
-
-        raise Exception('Engineer with initials {eng} does not exist!')
 
     #----------------------------------------------------------------------------------------------------------------------    
     def __readEDSFile(self, eng):
@@ -488,6 +490,42 @@ class Model():
 
         return [xList, yList]
 
+    #Checks how long ago the EDS file was ran. If it was ran more than 5 minutes ago, an exception will be thrown and the user will 
+    #be asked to re-run the eds file
+    def __confirmCreationTime(self, firstLine, fileName):
+        maxTimeDelayMinutes = 5
+        indexOfDash = self.__currentUser.index('-')
+        user = self.__currentUser[indexOfDash + 1:]
+        indexOfUser = firstLine.index(user)
+        indexOfPage = firstLine.index('PAGE')
+        fileDate = firstLine[indexOfUser + len(user):indexOfPage]
+        fileDate = fileDate.strip()
+        indexOfSpace = fileDate.rindex(' ')
+        fileDate = fileDate[indexOfSpace:]
+        fileDate = fileDate.strip()
+        fileCreationTime = datetime.strptime(fileDate, "%H:%M")
+        
+        timeNowString = datetime.today().strftime('%H:%M') 
+        timeNow = datetime.today().strptime(timeNowString, '%H:%M')
+
+        deltaT = timeNow - fileCreationTime
+        deltaTMinutes = deltaT.total_seconds()/60
+        
+        if deltaTMinutes > maxTimeDelayMinutes:
+            raise TimeDiferenceError(maxTimeDelayMinutes, deltaTMinutes, fileName)
+
+class TimeDiferenceError(Exception):
+    def __init__(self, maxTime, elapsedTime, fileName):
+        self.message = f"""The {fileName} file you was ran {elapsedTime} minutes ago. 
+Files should be imported within {maxTime} minutes of running. 
+Please re-run the eds module to ensure you have the latest file.
+
+If you are sure that you are importing the correct file,
+Ignore this error."""
+
+        super().__init__(self.message)
+        
+        
 #if __name__ == '__main__':
 #    model = Model()
 #    model.generateCurveFiles('GM')

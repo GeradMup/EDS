@@ -28,10 +28,7 @@ class Controller():
         
         #self.__window = self.__views.getWindow()
 
-        #Read system arguments to get the required details before running the rest of the script
-        #self.__engineer = sys.argv[1]
-        #self.__currentTorqueSpeed = int(sys.argv[2])
-        #self.__withstandTime = int(sys.argv[3])
+
 
         #self.__engineer = 'GM'
         #self.__currentTorqueSpeed = 1
@@ -46,8 +43,12 @@ class Controller():
         #withstand = self.__views.getWithstandTime()
         #curvesGenerated = self.__model.generateCurveFiles(self.__engineer, currentTorqueSpeed, withstand)
         try:
-            #curvesGenerated = self.__model.generateCurveFiles(self.__engineer, self.__currentTorqueSpeed, self.__withstandTime)
-            self.__model.generateCurveFiles('GM', 1, 1)
+            #Read system arguments to get the required details before running the rest of the script
+            self.__engineer = sys.argv[1]
+            self.__currentTorqueSpeed = int(sys.argv[2])
+            self.__withstandTime = int(sys.argv[3])
+            curvesGenerated = self.__model.generateCurveFiles(self.__engineer, self.__currentTorqueSpeed, self.__withstandTime)
+            #self.__model.generateCurveFiles('GM', 1, 1)
         except Exception as exc:
             self.__errors = errorWin.ErrorWindow()
             self.__errors.showException(exc)
